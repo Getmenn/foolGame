@@ -1,0 +1,22 @@
+.handPlayer{
+    .hand{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 140px;
+        height: 200px;
+        margin: 50px auto;
+        margin-top: -10px;
+        align-items: center;
+        justify-content: center;
+        @for $i from 1 to 7 {
+            .card:nth-child(#{$i}){
+                $degrees: -45deg + $i*13;
+                transform: rotate($degrees);
+            }
+        }
+        .card{
+            transform-origin: 50% 200% 0;
+        }
+    }
+}
