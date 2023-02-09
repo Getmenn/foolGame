@@ -1,15 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useActions } from '../../../../hooks/useActions'
+import { useTypedSelector } from '../../../../hooks/useTypeSelector'
 import { Card } from '../../card/Card'
 import './handOpponent.scss'
 
 const HandOpponent: React.FC = () => {
 
-    const [cards, setCards] = useState([1,2,3,4,45,5])
+    //const [cards, setCards] = useState<string[]>(['1', '2', '3', '4', '45', '5'])
+    const {hendOpponent} = useTypedSelector(state => state.cards)
+    const { getCardsT } = useActions()
+    
+    useEffect(() => {
+        getCardsT(6, 'opponent')
+    },[])
 
     return (
         <div className="handOpponent">
             <div className="hand">
-                {cards.map((card) => <Card key={card} />)}
+                {hendOpponent.map((card, index) => <Card key={card} card={hendOpponent[index]}/>)}
             </div>
         </div>
     )

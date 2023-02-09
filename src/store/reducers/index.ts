@@ -1,8 +1,8 @@
-import { packReducer } from './packReducer';
 import { cardReducer } from './cardReducer';
 import { combineReducers } from "redux";
 
 export const rootReduser = combineReducers({
     cards: cardReducer,
-    pack: packReducer
 })
+
+export type RootState = ReturnType<typeof rootReduser>

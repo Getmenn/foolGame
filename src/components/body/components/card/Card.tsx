@@ -1,19 +1,44 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { cardActions, setRandomCardsT } from "../../../../store/reducers/cardReducer"
+import { setRandomCardsT } from "../../../../store/reducers/action-creators/card"
+import { useActions } from "../../../hooks/useActions"
+import { useTypedSelector } from "../../../hooks/useTypeSelector"
+//import images from "../../../../packImages"
 import './card.scss'
 
-const Card: React.FC = () => {
+interface CardI{
+    card: string;
+    key: string;
+    //removeTodo: (id: number) => void;
+}
 
-    const dispatch = useDispatch()
+const Card: React.FC<CardI> = (props) => {
+
+    const {card } = props
+    
+    const {cards} = useTypedSelector(state => state.cards)
+    const { setRandomCardsT } = useActions()
+    
     const aaaa = () => {
-        //dispatch(cardActions.setRandomCards(5)) // не работает
-        console.log('ok');
-        setRandomCardsT() // тоже не работает
+        setRandomCardsT() // работает
     }
+
+    /* function getCommand(file: string) {
+        return import(
+          /* webpackInclude: /[A-Za-z0-9-_,\s]+\.ts$/i 
+          `../../../../pack/${file}`
+        );
+      }
+
+    const image = getCommand('6+.jpg')
+
+    console.log(image); */
+    
+
     return (
         <div className="card" onClick={aaaa}>
-        
+            {/* <img src={} alt="" /> */}
+            <p>{card}</p>
         </div>
     )
 }
