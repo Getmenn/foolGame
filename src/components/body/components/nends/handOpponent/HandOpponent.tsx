@@ -7,17 +7,23 @@ import './handOpponent.scss'
 const HandOpponent: React.FC = () => {
 
     //const [cards, setCards] = useState<string[]>(['1', '2', '3', '4', '45', '5'])
-    const {hendOpponent} = useTypedSelector(state => state.cards)
-    const { getCardsT } = useActions()
+    const { hendOpponent } = useTypedSelector(state => state.cards)
+    const {activePack} = useTypedSelector(state => state.onTable)
+    const { setCardOnTablePersonT } = useActions()
     
-    useEffect(() => {
-        getCardsT(6, 'opponent')
-    },[])
+   /*  useEffect(() => {
+        console.log(activePack);
+        
+    }) */
+    
+    const handleSelectCard = (card: string, attacker: string, person: string) => {
+        setCardOnTablePersonT(card, attacker, person)
+    }
 
     return (
         <div className="handOpponent">
             <div className="hand">
-                {hendOpponent.map((card, index) => <Card key={card} card={hendOpponent[index]}/>)}
+                {hendOpponent.map((card, index) => <Card key={card} card={hendOpponent[index]} handleSelectCard={handleSelectCard} hend={'opponent'} />)}
             </div>
         </div>
     )

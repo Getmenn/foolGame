@@ -5,11 +5,38 @@
     flex-direction: row;
     justify-content: center;
     margin-left: 100px;
-    align-items: center;
+    margin-top: 55px;
+    align-items: flex-end;
 }
 
 .packContainer{
     /* display: flex;
     align-items: center;
     justify-content: flex-start; */
+}
+
+.packOnTableContainer{
+    display: flex;
+    min-height: 180px;
+    min-width: 100px;
+    //margin-top: -208px;
+    justify-content: center;
+    .packOnTable{
+        display: flex;
+        width: 524px;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        .card:nth-child(2n){
+            margin-right: 60px;
+        }
+        .card:nth-child(n + 7){
+            margin-top: 15px;
+        }
+        .card{
+            //margin-top: 15px;
+            margin-left: -52px;
+        }
+
+    }
 }

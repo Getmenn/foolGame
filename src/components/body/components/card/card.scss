@@ -1,7 +1,13 @@
+
 .card{
-    height: 200px;
+    height: 180px;
     width: 100px;
     background: #ffb5b5;
     border: 1px solid #eb4949;
     margin-left: -96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
 }
+

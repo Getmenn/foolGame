@@ -11,8 +11,8 @@ export enum CardActionsTypes{
     ADD_OPPONENT_CARD = 'SET_OPPONENT_CARD', // добавить врагу
     DELETE_OPPONENT_CARD = 'GET_OPPONENT_CARD', // удалить у врага
     ADD_PLAYER_CARD = 'SET_PLAYER_CARD', // добавить игроку
-    DELETE_PLAYER_CARD = 'GET_PLAYER_CARD' // удалить у игрока
-    
+    DELETE_PLAYER_CARD = 'GET_PLAYER_CARD', // удалить у игрока
+    SET_NEW_CARDS = 'SET_NEW_CARDS' //добавить новые карты в колоду
 }
 
 interface SetRandomCardsAction{
@@ -44,7 +44,47 @@ interface GetCardsAction{
     payload: number
 }
 
+interface SetNewCardsAction{
+    type: CardActionsTypes.SET_NEW_CARDS;
+    payload: string[]
+}
+
 export type packAction =
     SetRandomCardsAction | AddOpponentCardAction |
     DeleteOpponentCardAction | AddPlayerCardAction |
-    DeletePlayerCardAction | GetCardsAction
+    DeletePlayerCardAction | GetCardsAction | SetNewCardsAction
+
+//===================================================== колода на столе
+
+export interface onTablePackState {
+    activePack: string[];
+    attacker: string;
+    person: string;
+    trash: string[];
+}
+
+export enum onTablePackTypes{
+    ADD_CARD_ON_TABLE = 'ADD_CARD_ON_TABLE',
+    CLEAR_TABLE = 'CLEAR_TABLE',
+    ADD_TRASH = 'ADD_TRASH'
+}
+
+interface addCardOnTable{
+    type: onTablePackTypes.ADD_CARD_ON_TABLE;
+    payload: { card: string, attacker: string, person: string}
+}
+
+interface clearTable{
+    type: onTablePackTypes.CLEAR_TABLE;
+    payload: {person: string} //чей ход слудующий
+}
+
+interface addTrash{
+    type: onTablePackTypes.ADD_TRASH;
+}
+
+
+export type onTablePackAction = addCardOnTable | clearTable | addTrash
+
+
+export type generalAction = onTablePackAction | packAction //обьединяющий экшены тип, для диспатчей

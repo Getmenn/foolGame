@@ -1,12 +1,12 @@
 .handPlayer{
+    width: 500px;
     .hand{
         display: flex;
         flex-direction: row;
         justify-content: center;
         width: 140px;
         height: 200px;
-        margin: 50px auto;
-        margin-top: -10px;
+        margin: 21px auto;
         align-items: center;
         justify-content: center;
         @for $i from 1 to 7 {
@@ -17,6 +17,33 @@
         }
         .card{
             transform-origin: 50% 200% 0;
+            &:hover{
+                transition-timing-function: linear;
+                transition-duration: .3s;
+                margin-bottom: 100px;
+            }
+        }
+    }
+    
+}
+
+.containerHandPlayer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    button{
+        height: 37px;
+        width: 110px;
+        background: #cb7e7e;
+        color: #000;
+        border: 1px solid #a05555;
+        border-radius: 5px;
+        margin-left: -95px;
+        
+        &:hover{
+            background: #d18d8d;
+            box-shadow: 3px 2px 2px rgb(111, 111, 111);
         }
     }
 }

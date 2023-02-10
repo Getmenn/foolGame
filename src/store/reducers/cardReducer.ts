@@ -27,13 +27,21 @@ const shuffle = (array: string[]) => {
     return array;
 }
 
-
+//сделать последнюю карту в массиве козырем 
 export const cardReducer = (state = initialState, action: packAction): cardState => {
     switch (action.type) { 
         case CardActionsTypes.SET_RANDOM_CARDS:
             return {
                 ...state,
                 cards: [...shuffle(state.cards)]
+            }
+        case CardActionsTypes.SET_NEW_CARDS:
+            return {
+                ...state,
+                cards: [...action.payload],
+                hendOpponent: [],
+                hendPlayer: []
+
             }
         case CardActionsTypes.GET_CARDS:
             return {
@@ -43,12 +51,12 @@ export const cardReducer = (state = initialState, action: packAction): cardState
         case CardActionsTypes.ADD_OPPONENT_CARD:
             return {
                 ...state,
-                hendOpponent: [...state.cards.slice(0, action.payload)]
+                hendOpponent: [...state.hendOpponent,...state.cards.slice(0, action.payload)]
             }
         case CardActionsTypes.ADD_PLAYER_CARD:
             return {
                 ...state,
-                hendPlayer: [...state.cards.slice(0, action.payload)]
+                hendPlayer: [...state.hendPlayer,...state.cards.slice(0, action.payload)]
             }
         case CardActionsTypes.DELETE_OPPONENT_CARD:
             return {
