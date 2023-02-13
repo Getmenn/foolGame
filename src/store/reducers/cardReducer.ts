@@ -8,7 +8,8 @@ const initialState: cardState = {
         '6 Spades', '7 Spades', '8 Spades', '9 Spades', '10 Spades', 'B Spades', 'D Spades', 'K Spades', 'T Spades'
     ],
     hendOpponent: [],
-    hendPlayer: []
+    hendPlayer: [],
+    trump: ''
     //suit: ['Diamonds', 'Hearts', 'Clubs', 'Spades'], //буби, черви, крести, пики
 }
 
@@ -30,10 +31,11 @@ const shuffle = (array: string[]) => {
 //сделать последнюю карту в массиве козырем 
 export const cardReducer = (state = initialState, action: packAction): cardState => {
     switch (action.type) { 
-        case CardActionsTypes.SET_RANDOM_CARDS:
+        case CardActionsTypes.SET_RANDOM_CARDS:        
             return {
                 ...state,
-                cards: [...shuffle(state.cards)]
+                cards: [...shuffle(state.cards)],
+                trump: state.cards.at(-1) || ''
             }
         case CardActionsTypes.SET_NEW_CARDS:
             return {
@@ -53,6 +55,16 @@ export const cardReducer = (state = initialState, action: packAction): cardState
                 ...state,
                 hendOpponent: [...state.hendOpponent,...state.cards.slice(0, action.payload)]
             }
+        case CardActionsTypes.ADD_OPPONENT_SOME_CARD:
+            return {
+                ...state,
+                hendOpponent: [...state.hendOpponent, ...action.payload],
+            }
+        case CardActionsTypes.ADD_PLAYER_SOME_CARD:
+            return {
+                ...state,
+                hendPlayer: [...state.hendPlayer, ...action.payload],
+            }
         case CardActionsTypes.ADD_PLAYER_CARD:
             return {
                 ...state,
@@ -67,7 +79,7 @@ export const cardReducer = (state = initialState, action: packAction): cardState
             return {
                 ...state,
                 hendPlayer: state.hendPlayer.filter((card, index) => card !== action.payload)
-        }
+            }
         default:
             return state;
     }

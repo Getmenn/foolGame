@@ -7,6 +7,13 @@
     margin-left: 100px;
     //margin-top: 55px;
     align-items: center;
+    .card{
+        z-index: 1;
+    }
+    .card:last-child{
+        transform: rotate(90deg);
+        z-index: 0;
+    }
 }
 
 .packContainer{

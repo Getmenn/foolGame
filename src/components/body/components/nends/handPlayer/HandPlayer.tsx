@@ -9,15 +9,28 @@ const HandPlayer: React.FC = () => {
     //const [cards, setCards] = useState<string[]>(['1', '2', '3', '4', '45', '5'])
     
     const { hendPlayer, hendOpponent } = useTypedSelector(state => state.cards)
-    const { attacker } = useTypedSelector(state => state.onTable)
-    const { setCardOnTablePersonT, addTrashCardsT, getCardsT, changeAttackerT } = useActions()
+    const { attacker, activePack } = useTypedSelector(state => state.onTable)
+    const [ elementLine, setElementLine ] = useState(false)
+    const { setCardOnTablePersonT, addTrashCardsT, getCardsT, changeAttackerT, addCardsLoserT } = useActions()
+
+    useEffect(() => {
+        if (hendPlayer.length > 6) {
+            setElementLine(true)
+        }
+    },[hendPlayer])
     
-    const handleSelectCard = (card: string, attacker: string, person: string) => {
-        setCardOnTablePersonT(card, attacker, person)
+    const handleSelectCard = (card: string, person: string) => {
+        setCardOnTablePersonT(card, person)
     }
 
     const handleResetcards = () => {
-        addTrashCardsT()
+        if (activePack.length % 2 === 1) {
+            addCardsLoserT(activePack, attacker === 'player'? 'opponent' : 'player')
+            addTrashCardsT('clear')
+        }
+        else{
+            addTrashCardsT('simple')
+        }
 
         if (hendPlayer.length < 6) {
             const amountCardsPlayer = 6 - hendPlayer.length
@@ -38,7 +51,7 @@ const HandPlayer: React.FC = () => {
             <div className="containerHandPlayer">
                 <div className="handPlayer">
                     <div className="hand">
-                        {hendPlayer.map((card, index) => <Card key={card} card={hendPlayer[index]} handleSelectCard={handleSelectCard} hend={'player'} />)}
+                        {hendPlayer.map((card, index) => <Card key={card} card={hendPlayer[index]} handleSelectCard={handleSelectCard} hend={'player'} elementLine={elementLine}/>)}
                     </div>
                 </div>
                 <button onClick={handleResetcards}>Бито</button>

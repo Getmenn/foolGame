@@ -15,7 +15,6 @@ export const activePack = (state = initialState, action: onTablePackAction): onT
             return {
                 ...state,
                 activePack: [...state.activePack, action.payload.card],
-                attacker: action.payload.attacker,
                 person: action.payload.person   //person ходит
             }
         case onTablePackTypes.CLEAR_TABLE:
@@ -27,6 +26,12 @@ export const activePack = (state = initialState, action: onTablePackAction): onT
                 person: action.payload.person    
             }
         case onTablePackTypes.ADD_TRASH:
+            if (action.payload === 'clear') {
+                return{
+                    ...state,
+                    activePack: []
+                }
+            }
             return {
                 ...state,
                 trash: [...state.trash, ...state.activePack],
