@@ -2,12 +2,17 @@
 .card{
     height: 180px;
     width: 100px;
-    background: #ffb5b5;
-    border: 1px solid #eb4949;
+    background: #d9e0ff;
+    border: 1px solid #b5b9ff;
     margin-left: -96px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 6px;
+    img{
+        border-radius: 6px;
+        width: 100%;
+        height: 100%;
+    }
 }
 

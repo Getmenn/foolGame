@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useActions } from "../../../hooks/useActions"
 import { useTypedSelector } from "../../../hooks/useTypeSelector"
-//import images from "../../../../packImages"
+import backSide from '../../../images/backSide.jpg'
 import './card.scss'
 
 interface CardI{
@@ -27,12 +27,14 @@ const Card: React.FC<CardI> = (props) => {
             }
         } 
     }
-
+    
     return (
         //<div className="cardPlase">
-            <div className='card' onClick={() => handlePlayCard(card)}>
-                {/* <img src={} alt="" /> */}
-                <p>{card}</p>
+        <div className='card' onClick={() => handlePlayCard(card)}>
+            {hend === 'pack'
+                ? <img src={backSide} alt="backSide card" />
+                : <p>{card}</p>
+            }    
             </div>
         //</div>
         

@@ -32,6 +32,12 @@ export const activePack = (state = initialState, action: onTablePackAction): onT
                 trash: [...state.trash, ...state.activePack],
                 activePack: []
             }
+        case onTablePackTypes.CHANGE_ATTACKER:
+            return {
+                ...state,
+                attacker: action.payload,
+                person: action.payload
+            }
         default:
             return state;
     }

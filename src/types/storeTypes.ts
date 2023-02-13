@@ -66,7 +66,8 @@ export interface onTablePackState {
 export enum onTablePackTypes{
     ADD_CARD_ON_TABLE = 'ADD_CARD_ON_TABLE',
     CLEAR_TABLE = 'CLEAR_TABLE',
-    ADD_TRASH = 'ADD_TRASH'
+    ADD_TRASH = 'ADD_TRASH',
+    CHANGE_ATTACKER = 'CHANGE_ATTACKER'
 }
 
 interface addCardOnTable{
@@ -83,8 +84,13 @@ interface addTrash{
     type: onTablePackTypes.ADD_TRASH;
 }
 
+interface changeAttacker{
+    type: onTablePackTypes.CHANGE_ATTACKER;
+    payload: string; //изменить нападающего
+}
 
-export type onTablePackAction = addCardOnTable | clearTable | addTrash
+
+export type onTablePackAction = addCardOnTable | clearTable | addTrash | changeAttacker
 
 
 export type generalAction = onTablePackAction | packAction //обьединяющий экшены тип, для диспатчей

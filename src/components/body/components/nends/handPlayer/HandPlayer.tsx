@@ -9,7 +9,8 @@ const HandPlayer: React.FC = () => {
     //const [cards, setCards] = useState<string[]>(['1', '2', '3', '4', '45', '5'])
     
     const { hendPlayer, hendOpponent } = useTypedSelector(state => state.cards)
-    const { setCardOnTablePersonT, addTrashCardsT, getCardsT } = useActions()
+    const { attacker } = useTypedSelector(state => state.onTable)
+    const { setCardOnTablePersonT, addTrashCardsT, getCardsT, changeAttackerT } = useActions()
     
     const handleSelectCard = (card: string, attacker: string, person: string) => {
         setCardOnTablePersonT(card, attacker, person)
@@ -27,6 +28,8 @@ const HandPlayer: React.FC = () => {
             const amountCardsOpponent = 6 - hendOpponent.length
             getCardsT(amountCardsOpponent, 'opponent')
         }
+
+        changeAttackerT(attacker === 'player'? 'opponent' : 'player') //изменяем наподающего
         
     }
 

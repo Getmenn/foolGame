@@ -1,7 +1,7 @@
 import { Dispatch } from "react"
 import { CardActionsTypes, generalAction, onTablePackAction, onTablePackTypes } from "../../../types/storeTypes"
 
-export const setCardOnTablePersonT = (card: string, attacker: string, person: string ) => { // ход игрока person ходит
+export const setCardOnTablePersonT = (card: string, attacker: string, person: string ) => { // первый ход игрока, person ходит
     
     return async (dispatch: Dispatch<generalAction>) => {
         dispatch({ type: onTablePackTypes.ADD_CARD_ON_TABLE, payload: { card: card, attacker: attacker, person: person } })
@@ -15,9 +15,16 @@ export const setCardOnTablePersonT = (card: string, attacker: string, person: st
     }
 }
 
-export const addTrashCardsT = () => { // ход игрока person ходит
+export const addTrashCardsT = () => { 
     
     return async (dispatch: Dispatch<generalAction>) => {
         dispatch({ type: onTablePackTypes.ADD_TRASH })
+    }
+}
+
+export const changeAttackerT = (attacker: string) => { 
+    
+    return async (dispatch: Dispatch<generalAction>) => {
+        dispatch({ type: onTablePackTypes.CHANGE_ATTACKER, payload: attacker})
     }
 }

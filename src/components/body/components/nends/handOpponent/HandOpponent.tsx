@@ -11,11 +11,6 @@ const HandOpponent: React.FC = () => {
     const {activePack} = useTypedSelector(state => state.onTable)
     const { setCardOnTablePersonT } = useActions()
     
-   /*  useEffect(() => {
-        console.log(activePack);
-        
-    }) */
-    
     const handleSelectCard = (card: string, attacker: string, person: string) => {
         setCardOnTablePersonT(card, attacker, person)
     }

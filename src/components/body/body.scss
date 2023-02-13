@@ -1,9 +1,35 @@
 .body{
     min-height: 837px;
     background: #beffcf;
-    display: flex;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 33% 33% 33%;
     flex-direction: column;
     justify-content: space-around;
     overflow: hidden;
-    //align-items: center;
+    align-items: center;
+}
+
+.body{
+    .handOpponent{
+        margin-top: -55px;
+        grid-column-start: 2;
+    }
+    .containerHandPlayer{
+        grid-row-start: 3;
+        grid-column-start: 2;
+    }
+    .packOnTableContainer{
+        grid-row-start: 2;
+        grid-column-start: 2;
+    }
+    .packContainer{
+        grid-row-start: 2;
+        grid-column-start: 1;
+    }
+    .treshPackConteiner{
+        grid-row-start: 2;
+        grid-column-start: 3;
+        justify-self: center;
+    }
 }

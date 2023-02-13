@@ -10,7 +10,7 @@ const Pack: React.FC = () => {
     return (
         <div className="packContainer">
             <div className="pack">
-                {cards.map((card) => <Card key={card} card={card}/>)}
+                {cards.map((card) => <Card key={card} card={card} hend={'pack'} />)}
             </div>
         </div>
     )
