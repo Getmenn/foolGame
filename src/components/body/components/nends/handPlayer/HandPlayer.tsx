@@ -17,6 +17,9 @@ const HandPlayer: React.FC = () => {
         if (hendPlayer.length > 6) {
             setElementLine(true)
         }
+        else {
+            setElementLine(false)
+        }
     },[hendPlayer])
     
     const handleSelectCard = (card: string, person: string) => {
@@ -25,25 +28,37 @@ const HandPlayer: React.FC = () => {
 
     const handleResetcards = () => {
         if (activePack.length % 2 === 1) {
-            addCardsLoserT(activePack, attacker === 'player'? 'opponent' : 'player')
+            addCardsLoserT(activePack, attacker === 'player' ? 'opponent' : 'player')
+            if (attacker === 'player') {
+                if (hendPlayer.length < 6) {
+                    const amountCardsPlayer = 6 - hendPlayer.length
+                    getCardsT(amountCardsPlayer, 'player')
+                }
+            }
+            else {
+                if (hendOpponent.length < 6) {
+                    const amountCardsOpponent = 6 - hendOpponent.length
+                    getCardsT(amountCardsOpponent, 'opponent')
+                }
+            }
             addTrashCardsT('clear')
         }
         else{
             addTrashCardsT('simple')
+            if (attacker === 'player') {
+                if (hendPlayer.length < 6) {
+                    const amountCardsPlayer = 6 - hendPlayer.length
+                    getCardsT(amountCardsPlayer, 'player')
+                }
+            }
+            else {
+                if (hendOpponent.length < 6) {
+                    const amountCardsOpponent = 6 - hendOpponent.length
+                    getCardsT(amountCardsOpponent, 'opponent')
+                }
+            }
+            changeAttackerT(attacker === 'player'? 'opponent' : 'player') //изменяем нападающего
         }
-
-        if (hendPlayer.length < 6) {
-            const amountCardsPlayer = 6 - hendPlayer.length
-            getCardsT(amountCardsPlayer, 'player')
-        }
-
-        if (hendOpponent.length < 6) {
-            const amountCardsOpponent = 6 - hendOpponent.length
-            getCardsT(amountCardsOpponent, 'opponent')
-        }
-
-        changeAttackerT(attacker === 'player'? 'opponent' : 'player') //изменяем наподающего
-        
     }
 
     return (

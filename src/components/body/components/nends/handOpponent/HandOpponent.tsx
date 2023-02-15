@@ -16,6 +16,9 @@ const HandOpponent: React.FC = () => {
         if (hendOpponent.length > 6) {
             setElementLine(true)
         }
+        else {
+            setElementLine(false)
+        }
     },[hendOpponent])
     
     const handleSelectCard = (card: string, person: string) => {

@@ -2,15 +2,15 @@ import { CardActionsTypes, cardState, packAction } from './../../types/storeType
 
 const initialState: cardState = {
     cards: [
-        '6 Diamonds', '7 Diamonds', '8 Diamonds', '9 Diamonds', '10 Diamonds', 'B Diamonds', 'D Diamonds', 'K Diamonds', 'T Diamonds',
-        '6 Hearts', '7 Hearts', '8 Hearts', '9 Hearts', '10 Hearts', 'B Hearts', 'D Hearts', 'K Hearts', 'T Hearts',
-        '6 Clubs', '7 Clubs', '8 Clubs', '9 Clubs', '10 Clubs', 'B Clubs', 'D Clubs', 'K Clubs', 'T Clubs',
-        '6 Spades', '7 Spades', '8 Spades', '9 Spades', '10 Spades', 'B Spades', 'D Spades', 'K Spades', 'T Spades'
+        '6 diamonds', '7 diamonds', '8 diamonds', '9 diamonds', '10 diamonds', 'B diamonds', 'D diamonds', 'K diamonds', 'T diamonds',
+        '6 hearts', '7 hearts', '8 hearts', '9 hearts', '10 hearts', 'B hearts', 'D hearts', 'K hearts', 'T hearts',
+        '6 clubs', '7 clubs', '8 clubs', '9 clubs', '10 clubs', 'B clubs', 'D clubs', 'K clubs', 'T clubs',
+        '6 spades', '7 spades', '8 spades', '9 spades', '10 spades', 'B spades', 'D spades', 'K spades', 'T spades'
     ],
     hendOpponent: [],
     hendPlayer: [],
     trump: ''
-    //suit: ['Diamonds', 'Hearts', 'Clubs', 'Spades'], //буби, черви, крести, пики
+    //suit: ['diamonds', 'hearts', 'clubs', 'spades'], //буби, черви, крести, пики
 }
 
 const shuffle = (array: string[]) => {
@@ -43,7 +43,6 @@ export const cardReducer = (state = initialState, action: packAction): cardState
                 cards: [...action.payload],
                 hendOpponent: [],
                 hendPlayer: []
-
             }
         case CardActionsTypes.GET_CARDS:
             return {

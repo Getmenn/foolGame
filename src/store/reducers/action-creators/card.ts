@@ -62,9 +62,12 @@ export const addCardsLoserT = (cards: string[], person: string) => {
     
     return async (dispatch: Dispatch<generalAction>) => {
         if (person === 'player') {
-            dispatch({ type: CardActionsTypes.ADD_PLAYER_SOME_CARD, payload: cards})
+            dispatch({ type: CardActionsTypes.ADD_PLAYER_SOME_CARD, payload: cards })
+            dispatch({ type: onTablePackTypes.CHANGE_ATTACKER, payload: 'opponent'})
+            
         } else {
-            dispatch({ type: CardActionsTypes.ADD_OPPONENT_SOME_CARD, payload: cards})
+            dispatch({ type: CardActionsTypes.ADD_OPPONENT_SOME_CARD, payload: cards })
+            dispatch({ type: onTablePackTypes.CHANGE_ATTACKER, payload: 'player'})
         }
         
     }

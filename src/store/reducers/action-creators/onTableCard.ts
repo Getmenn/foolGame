@@ -9,7 +9,7 @@ export const setCardOnTablePersonT = (card: string, person: string ) => { // п�
         if (person === 'player') { // удаление карт из рук 
             dispatch({ type: CardActionsTypes.DELETE_OPPONENT_CARD, payload: card })  
         }
-        else {//игроки поменяны местами для следующего хода
+        else {
             dispatch({ type: CardActionsTypes.DELETE_PLAYER_CARD, payload: card })
         }
     }

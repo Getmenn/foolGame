@@ -5,7 +5,6 @@
     flex-direction: row;
     justify-content: center;
     margin-left: 100px;
-    //margin-top: 55px;
     align-items: center;
     .card{
         z-index: 1;
@@ -13,20 +12,14 @@
     .card:last-child{
         transform: rotate(90deg);
         z-index: 0;
+        margin-left: -78px;
     }
-}
-
-.packContainer{
-    /* display: flex;
-    align-items: center;
-    justify-content: flex-start; */
 }
 
 .packOnTableContainer{
     display: flex;
     min-height: 180px;
     min-width: 100px;
-    //margin-top: -208px;
     justify-content: center;
     .packOnTable{
         display: flex;
@@ -41,7 +34,6 @@
             margin-top: 15px;
         }
         .card{
-            //margin-top: 15px;
             margin-left: -52px;
         }
 

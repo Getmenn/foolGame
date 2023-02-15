@@ -1,38 +1,49 @@
 import { useEffect, useState } from "react"
 import { useTypedSelector } from "../../../hooks/useTypeSelector"
-import backSide from '../../../images/backSide.jpg'
 import './card.scss'
-import { DetailedCard } from "./DetailedCard";
+import clubs from '../../../images/clubs.svg'
+import spades from '../../../images/spades.svg'
+import hearts from '../../../images/hearts.svg'
+import diamonds from '../../../images/diamonds.svg'
 
 interface CardI{
     card: string;
-    key: string;
     handleSelectCard?: (card: string, person: string) => void;
     hend?: string; //чья рука
-    elementLine?: boolean;
 }
 
-const Card: React.FC<CardI> = (props) => {
+const DetailedCard: React.FC<CardI> = (props) => {
 
-    const { card, handleSelectCard, hend, elementLine = false } = props
+    const { card, handleSelectCard, hend } = props
 
     const { trump } = useTypedSelector(state => state.cards)
     const { person, activePack, attacker} = useTypedSelector(state => state.onTable)
     const [cardValue, setCardValue] = useState('')
     const [cardSuit, setCardSuit] = useState('')
-
-    const styleCard: React.CSSProperties = elementLine  // работает, но пока безпонтово
-    ? {
-        transform: 'none',
-        marginLeft: '-42px'
-    } 
-        : {}
     
-    /* useEffect(() => {
+    useEffect(() => {
         setCardValue(card.slice(0, 2))
-        setCardSuit(card.slice(2).trim())
-    },[])
-    
+        setCardSuit(card.slice(2).trim()) 
+    }, [])
+
+    useEffect(() => {
+        switch (cardSuit) {
+            case 'clubs':
+                setCardSuit(clubs)
+                break;
+            case 'spades':
+                setCardSuit(spades)
+            break;
+            case 'hearts':
+                setCardSuit(hearts)
+            break;
+            case 'diamonds':
+                setCardSuit(diamonds)
+                break;
+            default:
+                break;
+        }
+    },[cardSuit])
     
     const convertValueToInt = (value:string) => {
         if (isNaN(Number(value))) {
@@ -55,20 +66,33 @@ const Card: React.FC<CardI> = (props) => {
     }
 
     const handlePlayCard = (card: string) => {
-        if(attacker === hend){ //сделать атаку только повторяющихся карт на столе
+        
+        if(attacker === hend){ 
             if (person === hend) {
-                if (handleSelectCard) {
-                    handleSelectCard(card, person === 'player'? 'opponent' : 'player')
+                if (activePack.length !== 0) { //если на столе больше 0 карт 
+                    const arrOfNumbers = activePack.map(cardPack => {
+                        return convertValueToInt(cardPack.slice(0,2))
+                    })
+                    if (arrOfNumbers.includes(convertValueToInt(card.slice(0,2)))) { //проверка есть ли на столе такая же карта которую выбрал пользователь
+                        if (handleSelectCard) {
+                            handleSelectCard(card, person === 'player'? 'opponent' : 'player')
+                        }
+                    }
+                }
+                else {
+                    if (handleSelectCard) {
+                        handleSelectCard(card, person === 'player'? 'opponent' : 'player')
+                    }
                 }
             } 
         }
-        else if (activePack.length !== 0) {
+        else if (activePack.length !== 0) { //при защите
 
             const lastCard = activePack.slice(-1);
             let lastCardValue = convertValueToInt(lastCard[0].slice(0,2)); //значения последней карты на столе
             const lastCardSuit = lastCard[0].slice(2); //масть последней карты на столе
 
-            let cardHendValue = convertValueToInt(card.slice(0,2));
+            let cardHendValue = convertValueToInt(cardValue);
             const cardHendSuit = card.slice(2);
 
             if (activePack.length % 2 === 1) { //проверка на колличество кар на столе
@@ -99,21 +123,24 @@ const Card: React.FC<CardI> = (props) => {
                 }
             }
             
-        }
-        
-        
-        
-        
-    } */
+        } 
+    }
     
     return (
-        <div className='card' style={styleCard}>
-            {hend === 'pack'
-                ? <img src={backSide} alt="backside card" />
-                : <DetailedCard card={card} handleSelectCard={handleSelectCard} hend={hend} />
-            }    
+        <div className='detailedCard' onClick={() => handlePlayCard(card)}>
+            <div className="leftUpCorner">
+                <span>{cardValue}</span>
+                <img src={cardSuit} alt="suit" />
+            </div>
+            <div className="midle">
+                <img src={cardSuit} alt="suit" />
+            </div>
+            <div className="rightDownCorner">
+                <img src={cardSuit} alt="suit" />
+                <span>{cardValue}</span>
+            </div> 
         </div>       
     )
 }
 
-export {Card}
+export {DetailedCard}

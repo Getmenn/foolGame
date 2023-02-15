@@ -2,8 +2,8 @@
 .card{
     height: 180px;
     width: 100px;
-    background: #d9e0ff;
-    border: 1px solid #b5b9ff;
+    background: #f0f1ff;
+    border: 1px solid #9d9d9d;
     margin-left: -96px;
     display: flex;
     align-items: center;
@@ -16,6 +16,59 @@
     }
     &:hover{
         z-index: 1;
+    }
+}
+
+.detailedCard{
+    width: inherit;
+    height: inherit;
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    grid-template-rows: 33% 33% 33%;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    padding: 5px;
+    span{
+        font-size: 23px;
+        font-weight: 400;
+    }
+    img{
+        padding: 3px;
+        height: 20px;
+        width: 20px;
+    }
+    .leftUpCorner{
+        margin: 8px 0px;
+        grid-row-start: 1;
+        grid-column-start: 1;
+        align-self: start;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .midle{
+        grid-row-start: 2;
+        grid-column-start: 2;
+        img{
+            height: 30px;
+            width: 30px;
+        }
+    }
+    .rightDownCorner{
+        img{
+            transform: rotate(180deg);
+        }
+        margin: 8px 0px;
+        grid-row-start: 3;
+        grid-column-start: 3;
+        align-self: end;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
     }
 }
 
