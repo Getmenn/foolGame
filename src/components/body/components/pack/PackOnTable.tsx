@@ -10,7 +10,7 @@ const PackOnTable: React.FC = () => {
     return (
         <div className="packOnTableContainer" /* style={{marginTop: activePack.length >= 6 ? '-193px' : '-233px'}} */>
             <div className="packOnTable">
-                {activePack?.map((card) => <Card key={card} card={card}/>)}
+                {activePack?.map((card) => <Card key={card} card={card} hend={'onTable'} />)}
             </div>
         </div>
     )

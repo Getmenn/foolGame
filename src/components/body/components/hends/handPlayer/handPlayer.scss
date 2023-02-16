@@ -42,9 +42,15 @@
         border-radius: 5px;
         margin-left: -95px;
         
-        &:hover{
+        &:not([disabled]):hover{
             background: #d18d8d;
             box-shadow: 3px 2px 2px rgb(111, 111, 111);
+        }
+
+        &:disabled{
+            background: #867d7d;
+            background: #bdb6b6;
+            border: 1px solid #998b8b;
         }
     }
 }

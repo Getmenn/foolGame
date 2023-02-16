@@ -10,7 +10,8 @@ const HandPlayer: React.FC = () => {
     
     const { hendPlayer, hendOpponent } = useTypedSelector(state => state.cards)
     const { attacker, activePack } = useTypedSelector(state => state.onTable)
-    const [ elementLine, setElementLine ] = useState(false)
+    const [elementLine, setElementLine] = useState(false)
+    const [disabled, setDisabled] = useState(true)
     const { setCardOnTablePersonT, addTrashCardsT, getCardsT, changeAttackerT, addCardsLoserT } = useActions()
 
     useEffect(() => {
@@ -20,13 +21,22 @@ const HandPlayer: React.FC = () => {
         else {
             setElementLine(false)
         }
-    },[hendPlayer])
+    }, [hendPlayer])
+    
+    useEffect(() => {
+        if (activePack.length === 0) {
+            setDisabled(true)
+        }
+        else {
+            setDisabled(false)
+        }
+    }, [activePack])
     
     const handleSelectCard = (card: string, person: string) => {
         setCardOnTablePersonT(card, person)
     }
 
-    const handleResetcards = () => {
+    const handleResetcards = () => { //раздача карт после сброса
         if (activePack.length % 2 === 1) {
             addCardsLoserT(activePack, attacker === 'player' ? 'opponent' : 'player')
             if (attacker === 'player') {
@@ -50,11 +60,19 @@ const HandPlayer: React.FC = () => {
                     const amountCardsPlayer = 6 - hendPlayer.length
                     getCardsT(amountCardsPlayer, 'player')
                 }
+                if (hendOpponent.length < 6) {
+                    const amountCardsOpponent = 6 - hendOpponent.length
+                    getCardsT(amountCardsOpponent, 'opponent')
+                }
             }
             else {
                 if (hendOpponent.length < 6) {
                     const amountCardsOpponent = 6 - hendOpponent.length
                     getCardsT(amountCardsOpponent, 'opponent')
+                }
+                if (hendPlayer.length < 6) {
+                    const amountCardsPlayer = 6 - hendPlayer.length
+                    getCardsT(amountCardsPlayer, 'player')
                 }
             }
             changeAttackerT(attacker === 'player'? 'opponent' : 'player') //изменяем нападающего
@@ -69,7 +87,7 @@ const HandPlayer: React.FC = () => {
                         {hendPlayer.map((card, index) => <Card key={card} card={hendPlayer[index]} handleSelectCard={handleSelectCard} hend={'player'} elementLine={elementLine}/>)}
                     </div>
                 </div>
-                <button onClick={handleResetcards}>Бито</button>
+                <button onClick={handleResetcards} disabled={disabled}>Бито</button>
             </div>
         </>
     )

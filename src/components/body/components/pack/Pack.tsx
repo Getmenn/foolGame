@@ -12,7 +12,7 @@ const Pack: React.FC = () => {
             <div className="pack">
                 {cards.map((card) => {
                     if (trump === card) {
-                        return <Card key={card} card={card}/>
+                        return <Card key={card} card={card} hend={'trump'}/>
                     }
                     return <Card key={card} card={card} hend={'pack'}/>
                 }

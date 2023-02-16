@@ -5,18 +5,20 @@ import clubs from '../../../images/clubs.svg'
 import spades from '../../../images/spades.svg'
 import hearts from '../../../images/hearts.svg'
 import diamonds from '../../../images/diamonds.svg'
+import { handlePlayCard } from "./cardFunctions"
 
-interface CardI{
+interface DetailedCardI{
     card: string;
     handleSelectCard?: (card: string, person: string) => void;
-    hend?: string; //чья рука
+    hend: string; //чья рука
+    //logickOpponent?: (card: string) => void;
 }
 
-const DetailedCard: React.FC<CardI> = (props) => {
+const DetailedCard: React.FC<DetailedCardI> = (props) => {
 
     const { card, handleSelectCard, hend } = props
 
-    const { trump } = useTypedSelector(state => state.cards)
+    const { trump, hendOpponent  } = useTypedSelector(state => state.cards)
     const { person, activePack, attacker} = useTypedSelector(state => state.onTable)
     const [cardValue, setCardValue] = useState('')
     const [cardSuit, setCardSuit] = useState('')
@@ -45,7 +47,7 @@ const DetailedCard: React.FC<CardI> = (props) => {
         }
     },[cardSuit])
     
-    const convertValueToInt = (value:string) => {
+    /* const convertValueToInt = (value:string) => {
         if (isNaN(Number(value))) {
             switch (value) {
                 case 'B ':
@@ -57,7 +59,7 @@ const DetailedCard: React.FC<CardI> = (props) => {
                 case 'T ':
                     return 14;
                 default:
-                    return value;
+                    return 0;
             }   
         }
         else{
@@ -66,7 +68,6 @@ const DetailedCard: React.FC<CardI> = (props) => {
     }
 
     const handlePlayCard = (card: string) => {
-        
         if(attacker === hend){ 
             if (person === hend) {
                 if (activePack.length !== 0) { //если на столе больше 0 карт 
@@ -124,10 +125,72 @@ const DetailedCard: React.FC<CardI> = (props) => {
             }
             
         } 
+    } */
+
+/* 
+    const makeUniq = (arr: string[]) => {
+        return arr.filter((el, id) => arr.indexOf(el) === id);
     }
+
+    const hendleCheckSuitTramp = (hendOpponentCopy: string[]) => { //выявление минимальной карты у врага
+        let hendOpponentValues = []
+
+        let minCard = convertValueToInt(hendOpponent[0].slice(0,2))
+        let indexCard = 0
+
+        hendOpponentValues = hendOpponentCopy.map(card => {
+            return convertValueToInt(card.slice(0,2))
+        })
+
+        minCard = Math.min.apply(null, hendOpponentValues)
+        indexCard = hendOpponentValues.findIndex(cardNumber => cardNumber === minCard)     
+        
+        return hendOpponentCopy[indexCard]
+    }
+  
+    const hendlePlayOpponent = () => { //переместить
+        if (attacker === 'opponent' && person === 'opponent') {
+            
+            let hendOpponentCopy = hendOpponent.slice(0);
+            let cardSelect = '';
+            
+            do {
+                if (makeUniq(hendOpponentCopy).length === 1) { //если все значения перебрали и в руках все козыри
+                    let cardSelect = hendleCheckSuitTramp(hendOpponent);
+                    handlePlayCard(cardSelect) //ходим с минимального козыря
+                    break;
+                }
+
+                let cardSelect = hendleCheckSuitTramp(hendOpponentCopy);
+                hendOpponentCopy = hendOpponentCopy.map(card => {
+                    if (card === cardSelect) {
+                        return '20'
+                    }
+                    else return card
+                })
+                console.log('go');
+                
+                
+                if (cardSelect.slice(2).trim() !== trump.slice(2).trim()) {
+                    console.log('ну все ок', cardSelect.slice(2).trim() !== trump, cardSelect.slice(2).trim(), cardSelect);
+                    
+                    setTimeout(() => handlePlayCard(cardSelect), 500)
+                }
+            }
+            while (cardSelect.slice(2).trim() === trump)
+
+        }
+
+    } */
+
+    /* useEffect(() => {
+        hendlePlayOpponent()
+    }, []) */
     
+    
+
     return (
-        <div className='detailedCard' onClick={() => handlePlayCard(card)}>
+        <div className='detailedCard' onClick={() => handlePlayCard(card, attacker, hend, person, activePack, handleSelectCard, trump)}>
             <div className="leftUpCorner">
                 <span>{cardValue}</span>
                 <img src={cardSuit} alt="suit" />
