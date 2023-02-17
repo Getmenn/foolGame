@@ -7,10 +7,9 @@ import { hendlePlayOpponent } from './opponentFunctions'
 
 const HandOpponent: React.FC = () => {
 
-    //const [cards, setCards] = useState<string[]>(['1', '2', '3', '4', '45', '5'])
     const { hendOpponent, trump } = useTypedSelector(state => state.cards)
     const { activePack, attacker, person} = useTypedSelector(state => state.onTable)
-    const [ elementLine, setElementLine ] = useState(false)
+    const [ elementLine, setElementLine ] = useState<boolean>(false)
     const { setCardOnTablePersonT } = useActions()
 
     useEffect(() => {
@@ -23,13 +22,12 @@ const HandOpponent: React.FC = () => {
     }, [hendOpponent])
     
     useEffect(() => {
-        
         if (attacker === 'opponent' && person === 'opponent') {
             hendlePlayOpponent(hendOpponent, activePack, handleSelectCard, trump)
         }
     }, [attacker])
     
-    const handleSelectCard = (card: string, person: string) => {
+    const handleSelectCard = (card: string, person: string):void => {
         setCardOnTablePersonT(card, person)
     }
 

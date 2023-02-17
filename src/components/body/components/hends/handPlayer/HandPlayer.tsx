@@ -10,8 +10,8 @@ const HandPlayer: React.FC = () => {
     
     const { hendPlayer, hendOpponent } = useTypedSelector(state => state.cards)
     const { attacker, activePack } = useTypedSelector(state => state.onTable)
-    const [elementLine, setElementLine] = useState(false)
-    const [disabled, setDisabled] = useState(true)
+    const [elementLine, setElementLine] = useState<boolean>(false)
+    const [disabled, setDisabled] = useState<boolean>(true)
     const { setCardOnTablePersonT, addTrashCardsT, getCardsT, changeAttackerT, addCardsLoserT } = useActions()
 
     useEffect(() => {
@@ -32,11 +32,11 @@ const HandPlayer: React.FC = () => {
         }
     }, [activePack])
     
-    const handleSelectCard = (card: string, person: string) => {
+    const handleSelectCard = (card: string, person: string):void => {
         setCardOnTablePersonT(card, person)
     }
 
-    const handleResetcards = () => { //раздача карт после сброса
+    const handleResetcards = ():void => { //раздача карт после сброса
         if (activePack.length % 2 === 1) {
             addCardsLoserT(activePack, attacker === 'player' ? 'opponent' : 'player')
             if (attacker === 'player') {
@@ -84,7 +84,13 @@ const HandPlayer: React.FC = () => {
             <div className="containerHandPlayer">
                 <div className="handPlayer">
                     <div className="hand">
-                        {hendPlayer.map((card, index) => <Card key={card} card={hendPlayer[index]} handleSelectCard={handleSelectCard} hend={'player'} elementLine={elementLine}/>)}
+                        {hendPlayer.map((card, index) => <Card
+                            key={card}
+                            card={hendPlayer[index]}
+                            handleSelectCard={handleSelectCard}
+                            hend={'player'}
+                            elementLine={elementLine}
+                        />)}
                     </div>
                 </div>
                 <button onClick={handleResetcards} disabled={disabled}>Бито</button>

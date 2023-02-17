@@ -1,5 +1,5 @@
 
-export const convertValueToInt = (value: string) => {
+export const convertValueToInt = (value: string): number => {
     if (isNaN(Number(value))) {
         switch (value) {
             case 'B ':
@@ -19,7 +19,7 @@ export const convertValueToInt = (value: string) => {
     }
 }
 
-export const handlePlayCard = (card: string, attacker:string, hend:string, person:string, activePack: string[], handleSelectCard: any, trump: string) => {
+export const handlePlayCard = (card: string, attacker:string, hend:string, person:string, activePack: string[], handleSelectCard: any, trump: string): void => {
     if(attacker === hend){ 
         if (person === hend) {
             if (activePack.length !== 0) { //если на столе больше 0 карт 

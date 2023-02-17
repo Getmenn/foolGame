@@ -19,8 +19,8 @@ const Card: React.FC<CardI> = (props) => {
 
     const { trump } = useTypedSelector(state => state.cards)
     const { person, activePack, attacker} = useTypedSelector(state => state.onTable)
-    const [cardValue, setCardValue] = useState('')
-    const [cardSuit, setCardSuit] = useState('')
+    const [cardValue, setCardValue] = useState<string>('')
+    const [cardSuit, setCardSuit] = useState<string>('')
 
     const styleCard: React.CSSProperties = elementLine  // работает, но пока безпонтово
     ? {

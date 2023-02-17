@@ -5,7 +5,7 @@ const Header: React.FC = () => {
 
     const { setNewGameT } = useActions()
 
-    const handleReload = () => {
+    const handleReload = (): void => {
         setNewGameT()
     }
     

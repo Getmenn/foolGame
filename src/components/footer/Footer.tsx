@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
 
     const { attacker } = useTypedSelector(state => state.onTable)
 
-    const person = attacker === 'player'? 'Игрока' : 'Компьютера';
+    const person: string = attacker === 'player'? 'Игрока' : 'Компьютера';
     
     return (
         <div className="footer">

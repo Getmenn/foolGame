@@ -1,10 +1,10 @@
 import { convertValueToInt, handlePlayCard } from "../../card/cardFunctions";
 
-const makeUniq = (arr: string[]) => {
+const makeUniq = (arr: string[]):string[] => {
     return arr.filter((el, id) => arr.indexOf(el) === id);
 }
 
-const hendleCheckSuitTramp = (hendOpponentCopy: string[]) => { //выявление минимальной карты у врага
+const hendleCheckSuitTramp = (hendOpponentCopy: string[]):string => { //выявление минимальной карты у врага
     let hendOpponentValues = []
 
     let minCard = convertValueToInt(hendOpponentCopy[0].slice(0,2))
@@ -20,11 +20,11 @@ const hendleCheckSuitTramp = (hendOpponentCopy: string[]) => { //выявлен�
     return hendOpponentCopy[indexCard]
 }
 
-export const hendlePlayOpponent = ( hendOpponent: string[], activePack: string[], handleSelectCard: any, trump: string) => { //переместить
+export const hendlePlayOpponent = ( hendOpponent: string[], activePack: string[], handleSelectCard: any, trump: string):void => { //переместить
         
-    let hendOpponentCopy = hendOpponent.slice(0);
-    let cardSelect = '';
-    let cardStatus = true
+    let hendOpponentCopy: string[] = hendOpponent.slice(0);
+    let cardSelect: string = '';
+    let cardStatus: boolean = true
     
     do {
         if (makeUniq(hendOpponentCopy).length === 1) { //если все значения перебрали и в руках все козыри
