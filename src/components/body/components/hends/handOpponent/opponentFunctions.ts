@@ -1,11 +1,13 @@
-import { convertValueToInt, handlePlayCard } from "../../card/cardFunctions";
+import { IResetCards } from "../../../../../types/dats";
+import { convertValueToInt, handlePlayCard, handleResetCards } from "../../card/cardFunctions";
 
 const makeUniq = (arr: string[]): string[] => { //преобразования массива в массив уникальных значений
     return arr.filter((el, id) => arr.indexOf(el) === id);
 }
 
 const hendleCheckSuitTramp = (hendOpponent: string[], lastCardSuit?: string, lastCardNumber?: number , trump?: string): string => { //выявление минимальной карты у врага
-    if (lastCardSuit && lastCardNumber) {
+    
+    if (lastCardSuit && lastCardNumber && lastCardSuit !== '0') {
         let cardSelect: string = '0';
 
         const variantsMove: string[] = hendOpponent.filter(card => { //выбираем карты из руки которые больше карты на столе
@@ -29,13 +31,14 @@ const hendleCheckSuitTramp = (hendOpponent: string[], lastCardSuit?: string, las
         
         return cardSelect
     }
-    else if (trump){ // поиск минимального козыря в руке
-        
+    else if (trump !== undefined) { // поиск минимального козыря в руке
         let cardSelect: string = '0';
 
         const variantsMove: string[] = hendOpponent.filter(card => { //создаем массив из козырей
-            const suitCard = card.slice(2).trim()
-            if (suitCard === trump) {
+            const suitCard = card.slice(2).trim();
+            
+            if (suitCard === trump.slice(2).trim()) {
+                cardSelect = card;
                 return card
             } 
         })
@@ -43,15 +46,14 @@ const hendleCheckSuitTramp = (hendOpponent: string[], lastCardSuit?: string, las
         variantsMove.forEach(card => { //выбираем наименьшую карту
             const valueCard = convertValueToInt(card.slice(0, 2))
             if (valueCard < convertValueToInt(cardSelect.slice(0, 2))) {
-                cardSelect = card
+                cardSelect = card;
             }
         })    
-
+        
         return cardSelect
-
     }
-    else {
-        let hendOpponentValues = []
+    else { 
+        let hendOpponentValues:number[]// = []     
 
         let minCard = convertValueToInt(hendOpponent[0].slice(0,2))
         let indexCard = 0
@@ -101,19 +103,21 @@ const hendleFirstMoveOpponent =  ( hendOpponent: string[], activePack: string[],
     while (cardSelect.slice(2).trim() !== trump)
 }
 
-export const hendleProtectionOpponent = ( hendOpponent: string[], activePack: string[], handleSelectCard: any, trump: string): void => { //
+export const hendleProtectionOpponent = ( hendOpponent: string[], activePack: string[], handleSelectCard: any, trump: string, propsReset: IResetCards): void => { //
         
     const lastCard: string = activePack[activePack.length - 1];
     const lastCardSuit: string = lastCard.slice(2).trim();
     const lastCardNumber: number = convertValueToInt(lastCard.slice(0, 2));
     
-    let cardSelect = hendleCheckSuitTramp(hendOpponent, lastCardSuit, lastCardNumber) // изменить все на selectCard
+    let cardSelect: string = hendleCheckSuitTramp(hendOpponent, lastCardSuit, lastCardNumber) // изменить все на selectCard
     
     if (cardSelect === '0' && lastCardSuit !== trump) { //если нет подходящей карты и карта на столе не козырь
-        cardSelect = hendleCheckSuitTramp(hendOpponent, trump) //выбираем наименьший козырь из рук
+        cardSelect = hendleCheckSuitTramp(hendOpponent, '0', 0, trump) //выбираем наименьший козырь из рук  
 
         if (cardSelect === '0') {
-            //забирает
+            console.log('Враг забирает карты');
+            
+            setTimeout(() => handleResetCards(propsReset), 500)
         }
         else {
             setTimeout(() => handlePlayCard(cardSelect, 'player', 'opponent', 'opponent', activePack, handleSelectCard, trump), 500)
@@ -126,14 +130,14 @@ export const hendleProtectionOpponent = ( hendOpponent: string[], activePack: st
 }
 
 
-export const hendlePlayOpponent = ( hendOpponent: string[], activePack: string[], handleSelectCard: any, trump: string, attacker: string, person: string): void => {
+export const hendlePlayOpponent = ( hendOpponent: string[], activePack: string[], handleSelectCard: any, trump: string, attacker: string, person: string, propsReset: IResetCards): void => {
     
     if (attacker === 'opponent' && person === 'opponent') {
         hendleFirstMoveOpponent(hendOpponent, activePack, handleSelectCard, trump); //первый атакующий ход оппонета
     }
     else if (attacker === 'player' && person === 'opponent') {
         
-        hendleProtectionOpponent(hendOpponent, activePack, handleSelectCard, trump); //защита оппонета
+        hendleProtectionOpponent(hendOpponent, activePack, handleSelectCard, trump, propsReset); //защита оппонета
     }
 
 }
