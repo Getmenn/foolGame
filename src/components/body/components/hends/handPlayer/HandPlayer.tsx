@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+import { IResetCards } from '../../../../../types/dats'
 import { useActions } from '../../../../hooks/useActions'
 import { useTypedSelector } from '../../../../hooks/useTypeSelector'
 import { Card } from '../../card/Card'
+import { handleResetCards } from '../../card/cardFunctions'
 import './handPlayer.scss'
 
 const HandPlayer: React.FC = () => {
@@ -32,52 +34,70 @@ const HandPlayer: React.FC = () => {
         }
     }, [activePack])
     
-    const handleSelectCard = (card: string, person: string):void => {
+    const handleSelectCard = (card: string, person: string): void => { // положить карту на стол
         setCardOnTablePersonT(card, person)
     }
 
-    const handleResetcards = ():void => { //раздача карт после сброса
+    const handleAddCardLoser = (activePack: string[], attacker: string): void => { //добавить карты со стола проигравшему
+        addCardsLoserT(activePack, attacker === 'player' ? 'opponent' : 'player')
+    }
+
+    const hendleGetCards = (amount: number, person: string ): void => { // добавить карты кому-то
+        getCardsT(amount, person)
+    }
+
+    const hendAddCardsTrash = (type: string): void => { //убрать карты в бито
+        addTrashCardsT(type)
+    }
+
+    const handleChangeAttacker = (attacker: string): void => { //изменяем нападающего
+        changeAttackerT(attacker === 'player'? 'opponent' : 'player') 
+    }
+
+    const propsReset:IResetCards = {activePack, attacker, handleAddCardLoser, hendPlayer, hendOpponent, hendleGetCards, hendAddCardsTrash, handleChangeAttacker}
+
+    /* const handleResetCards = ():void => { //раздача карт после сброса
         if (activePack.length % 2 === 1) {
-            addCardsLoserT(activePack, attacker === 'player' ? 'opponent' : 'player')
+            handleAddCardLoser(activePack, attacker)
             if (attacker === 'player') {
                 if (hendPlayer.length < 6) {
                     const amountCardsPlayer = 6 - hendPlayer.length
-                    getCardsT(amountCardsPlayer, 'player')
+                    hendleGetCards(amountCardsPlayer, 'player')
                 }
             }
             else {
                 if (hendOpponent.length < 6) {
                     const amountCardsOpponent = 6 - hendOpponent.length
-                    getCardsT(amountCardsOpponent, 'opponent')
+                    hendleGetCards(amountCardsOpponent, 'opponent')
                 }
             }
-            addTrashCardsT('clear')
+            hendAddCardsTrash('clear')
         }
         else{
-            addTrashCardsT('simple')
+            hendAddCardsTrash('simple')
             if (attacker === 'player') {
                 if (hendPlayer.length < 6) {
                     const amountCardsPlayer = 6 - hendPlayer.length
-                    getCardsT(amountCardsPlayer, 'player')
+                    hendleGetCards(amountCardsPlayer, 'player')
                 }
                 if (hendOpponent.length < 6) {
                     const amountCardsOpponent = 6 - hendOpponent.length
-                    getCardsT(amountCardsOpponent, 'opponent')
+                    hendleGetCards(amountCardsOpponent, 'opponent')
                 }
             }
             else {
                 if (hendOpponent.length < 6) {
                     const amountCardsOpponent = 6 - hendOpponent.length
-                    getCardsT(amountCardsOpponent, 'opponent')
+                    hendleGetCards(amountCardsOpponent, 'opponent')
                 }
                 if (hendPlayer.length < 6) {
                     const amountCardsPlayer = 6 - hendPlayer.length
-                    getCardsT(amountCardsPlayer, 'player')
+                    hendleGetCards(amountCardsPlayer, 'player')
                 }
             }
-            changeAttackerT(attacker === 'player'? 'opponent' : 'player') //изменяем нападающего
+            handleChangeAttacker(attacker)
         }
-    }
+    } */
 
     return (
         <>
@@ -93,7 +113,7 @@ const HandPlayer: React.FC = () => {
                         />)}
                     </div>
                 </div>
-                <button onClick={handleResetcards} disabled={disabled}>Бито</button>
+                <button onClick={() => handleResetCards(propsReset)} disabled={disabled}>Бито</button>
             </div>
         </>
     )

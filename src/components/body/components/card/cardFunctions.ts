@@ -1,3 +1,4 @@
+import { IResetCards } from "../../../../types/dats";
 
 export const convertValueToInt = (value: string): number => {
     if (isNaN(Number(value))) {
@@ -77,4 +78,51 @@ export const handlePlayCard = (card: string, attacker:string, hend:string, perso
         }
         
     } 
+}
+    
+    
+export const handleResetCards = (props: IResetCards): void => { //сброс и раздача карт после сброса
+    
+    const  {activePack, attacker, handleAddCardLoser, hendPlayer, hendOpponent, hendleGetCards, hendAddCardsTrash, handleChangeAttacker}  = props   
+        
+    if (activePack.length % 2 === 1) {
+        handleAddCardLoser(activePack, attacker)
+        if (attacker === 'player') {
+            if (hendPlayer.length < 6) {
+                const amountCardsPlayer = 6 - hendPlayer.length
+                hendleGetCards(amountCardsPlayer, 'player')
+            }
+        }
+        else {
+            if (hendOpponent.length < 6) {
+                const amountCardsOpponent = 6 - hendOpponent.length
+                hendleGetCards(amountCardsOpponent, 'opponent')
+            }
+        }
+        hendAddCardsTrash('clear')
+    }
+    else{
+        hendAddCardsTrash('simple')
+        if (attacker === 'player') {
+            if (hendPlayer.length < 6) {
+                const amountCardsPlayer = 6 - hendPlayer.length
+                hendleGetCards(amountCardsPlayer, 'player')
+            }
+            if (hendOpponent.length < 6) {
+                const amountCardsOpponent = 6 - hendOpponent.length
+                hendleGetCards(amountCardsOpponent, 'opponent')
+            }
+        }
+        else {
+            if (hendOpponent.length < 6) {
+                const amountCardsOpponent = 6 - hendOpponent.length
+                hendleGetCards(amountCardsOpponent, 'opponent')
+            }
+            if (hendPlayer.length < 6) {
+                const amountCardsPlayer = 6 - hendPlayer.length
+                hendleGetCards(amountCardsPlayer, 'player')
+            }
+        }
+        handleChangeAttacker(attacker)
+    }
 }

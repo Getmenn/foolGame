@@ -13,7 +13,7 @@ const HandOpponent: React.FC = () => {
     const { setCardOnTablePersonT } = useActions()
 
     useEffect(() => {
-        if (hendOpponent.length > 6) {
+        if (hendOpponent.length > 6) { //если карт больше 6 то изменяе стили
             setElementLine(true)
         }
         else {
@@ -22,12 +22,12 @@ const HandOpponent: React.FC = () => {
     }, [hendOpponent])
     
     useEffect(() => {
-        if (attacker === 'opponent' && person === 'opponent') {
-            hendlePlayOpponent(hendOpponent, activePack, handleSelectCard, trump)
+        if (person === 'opponent') {
+            hendlePlayOpponent(hendOpponent, activePack, handleSelectCard, trump, attacker, person)
         }
-    }, [attacker])
+    }, [person, attacker])
     
-    const handleSelectCard = (card: string, person: string):void => {
+    const handleSelectCard = (card: string, person: string): void => {
         setCardOnTablePersonT(card, person)
     }
 
