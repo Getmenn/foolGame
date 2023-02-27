@@ -6,17 +6,9 @@ import spades from '../../../images/spades.svg'
 import hearts from '../../../images/hearts.svg'
 import diamonds from '../../../images/diamonds.svg'
 import { handlePlayCard } from "./cardFunctions"
+import { IDetailedCard } from "../../../../types/dats"
 
-interface DetailedCardI{
-    card: string;
-    handleSelectCard?: (card: string, person: string) => void;
-    hend: string; //чья рука
-    //logickOpponent?: (card: string) => void;
-}
-
-const DetailedCard: React.FC<DetailedCardI> = (props) => {
-
-    const { card, handleSelectCard, hend } = props
+const DetailedCard: React.FC<IDetailedCard> = ({ card, handleSelectCard, hend }) => {
 
     const { trump, hendOpponent  } = useTypedSelector(state => state.cards)
     const { person, activePack, attacker} = useTypedSelector(state => state.onTable)
@@ -48,7 +40,7 @@ const DetailedCard: React.FC<DetailedCardI> = (props) => {
     },[cardSuit])  
 
     return (
-        <div className='detailedCard' onClick={() => handlePlayCard(card, attacker, hend, person, activePack, handleSelectCard, trump)}>
+        <div className='detailedCard' onClick={() => handlePlayCard({card, attacker, hend, person, activePack, handleSelectCard, trump})}>
             <div className="leftUpCorner">
                 <span>{cardValue}</span>
                 <img src={cardSuit} alt="suit" />

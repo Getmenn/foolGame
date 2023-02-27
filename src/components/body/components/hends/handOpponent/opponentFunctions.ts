@@ -11,8 +11,8 @@ const hendleCheckSuitTramp = (hendOpponent: string[], lastCardSuit?: string, las
         let cardSelect: string = '0';
 
         const variantsMove: string[] = hendOpponent.filter(card => { //выбираем карты из руки которые больше карты на столе
-            const valueCard = convertValueToInt(card.slice(0, 2))
-            const suitCard = card.slice(2).trim()
+            const valueCard: number = convertValueToInt(card.slice(0, 2))
+            const suitCard: string = card.slice(2).trim()
             if (suitCard === lastCardSuit) {
                 if (valueCard > lastCardNumber) {
                     cardSelect = card
@@ -22,7 +22,7 @@ const hendleCheckSuitTramp = (hendOpponent: string[], lastCardSuit?: string, las
         })
 
         variantsMove.forEach(card => { //выбираем наименьшую из них
-            const valueCard = convertValueToInt(card.slice(0, 2))
+            const valueCard: number = convertValueToInt(card.slice(0, 2))
             
             if (valueCard < convertValueToInt(cardSelect.slice(0, 2))) {
                 cardSelect = card
@@ -35,7 +35,7 @@ const hendleCheckSuitTramp = (hendOpponent: string[], lastCardSuit?: string, las
         let cardSelect: string = '0';
 
         const variantsMove: string[] = hendOpponent.filter(card => { //создаем массив из козырей
-            const suitCard = card.slice(2).trim();
+            const suitCard: string = card.slice(2).trim();
             
             if (suitCard === trump.slice(2).trim()) {
                 cardSelect = card;
@@ -44,7 +44,7 @@ const hendleCheckSuitTramp = (hendOpponent: string[], lastCardSuit?: string, las
         })
 
         variantsMove.forEach(card => { //выбираем наименьшую карту
-            const valueCard = convertValueToInt(card.slice(0, 2))
+            const valueCard: number = convertValueToInt(card.slice(0, 2))
             if (valueCard < convertValueToInt(cardSelect.slice(0, 2))) {
                 cardSelect = card;
             }
@@ -55,8 +55,8 @@ const hendleCheckSuitTramp = (hendOpponent: string[], lastCardSuit?: string, las
     else { 
         let hendOpponentValues:number[]// = []     
 
-        let minCard = convertValueToInt(hendOpponent[0].slice(0,2))
-        let indexCard = 0
+        let minCard: number = convertValueToInt(hendOpponent[0].slice(0,2))
+        let indexCard: number = 0
     
         hendOpponentValues = hendOpponent.map(card => {
             return convertValueToInt(card.slice(0,2))
@@ -72,35 +72,38 @@ const hendleCheckSuitTramp = (hendOpponent: string[], lastCardSuit?: string, las
 const hendleFirstMoveOpponent =  ( hendOpponent: string[], activePack: string[], handleSelectCard: any, trump: string): void => { 
     
     let hendOpponentCopy: string[] = hendOpponent.slice(0);
-    let cardSelect: string = '';
+    let card: string = '';
     let cardStatus: boolean = true;
+    const attacker= 'opponent'
+    const hend = 'opponent'
+    const person = 'opponent'
     
     do {
         if (makeUniq(hendOpponentCopy).length === 1) { //если все значения перебрали и в руках все козыри
-            let cardSelect = hendleCheckSuitTramp(hendOpponent); // срабатывает
+            let card: string = hendleCheckSuitTramp(hendOpponent); // срабатывает
 
             if (activePack.length === 0 && cardStatus ) {
-                handlePlayCard(cardSelect, 'opponent', 'opponent', 'opponent', activePack, handleSelectCard, trump) //ходим с минимального козыря
+                handlePlayCard({card , hend , attacker, person, activePack, handleSelectCard, trump}) //ходим с минимального козыря
             }
             break;
         }
 
-        let cardSelect = hendleCheckSuitTramp(hendOpponentCopy);
+        let card: string = hendleCheckSuitTramp(hendOpponentCopy);
 
         hendOpponentCopy = hendOpponentCopy.map(card => {
-            if (card === cardSelect) {
+            if (card === card) {
                 return '20'
             }
             else return card
         })
         
         
-        if (cardSelect.slice(2).trim() !== trump.slice(2).trim() && cardStatus) {
-            setTimeout(() => handlePlayCard(cardSelect, 'opponent', 'opponent', 'opponent', activePack, handleSelectCard, trump), 500) 
+        if (card.slice(2).trim() !== trump.slice(2).trim() && cardStatus) {
+            setTimeout(() => handlePlayCard({card , hend , attacker, person, activePack, handleSelectCard, trump}), 500) 
             cardStatus = false
         }
     }
-    while (cardSelect.slice(2).trim() !== trump)
+    while (card.slice(2).trim() !== trump)
 }
 
 export const hendleProtectionOpponent = ( hendOpponent: string[], activePack: string[], handleSelectCard: any, trump: string, propsReset: IResetCards): void => { //
@@ -108,23 +111,26 @@ export const hendleProtectionOpponent = ( hendOpponent: string[], activePack: st
     const lastCard: string = activePack[activePack.length - 1];
     const lastCardSuit: string = lastCard.slice(2).trim();
     const lastCardNumber: number = convertValueToInt(lastCard.slice(0, 2));
+    const attacker= 'player'
+    const hend = 'opponent'
+    const person = 'opponent'
     
-    let cardSelect: string = hendleCheckSuitTramp(hendOpponent, lastCardSuit, lastCardNumber) // изменить все на selectCard
+    let card: string = hendleCheckSuitTramp(hendOpponent, lastCardSuit, lastCardNumber) // изменить все на selectCard
     
-    if (cardSelect === '0' && lastCardSuit !== trump) { //если нет подходящей карты и карта на столе не козырь
-        cardSelect = hendleCheckSuitTramp(hendOpponent, '0', 0, trump) //выбираем наименьший козырь из рук  
+    if (card === '0' && lastCardSuit !== trump) { //если нет подходящей карты и карта на столе не козырь
+        card = hendleCheckSuitTramp(hendOpponent, '0', 0, trump) //выбираем наименьший козырь из рук  
 
-        if (cardSelect === '0') {
+        if (card === '0') {
             console.log('Враг забирает карты');
             
             setTimeout(() => handleResetCards(propsReset), 500)
         }
         else {
-            setTimeout(() => handlePlayCard(cardSelect, 'player', 'opponent', 'opponent', activePack, handleSelectCard, trump), 500)
+            setTimeout(() => handlePlayCard({card ,attacker, hend  , person, activePack, handleSelectCard, trump}), 500)
         }
     }
     else { //если есть чем побить без козыря      
-        setTimeout(() => handlePlayCard(cardSelect, 'player', 'opponent', 'opponent', activePack, handleSelectCard, trump), 500) 
+        setTimeout(() => handlePlayCard({card ,attacker, hend  , person, activePack, handleSelectCard, trump}), 500) 
     }
 
 }

@@ -32,29 +32,14 @@ const HandOpponent: React.FC = () => {
         setCardOnTablePersonT(card, person)
     }
 
-    const handleAddCardLoser = (activePack: string[], attacker: string): void => { //добавить карты со стола проигравшему
-        addCardsLoserT(activePack, attacker === 'player' ? 'opponent' : 'player')
-    }
-
-    const hendleGetCards = (amount: number, person: string ): void => { // добавить карты кому-то
-        getCardsT(amount, person)
-    }
-
-    const hendAddCardsTrash = (type: string): void => { //убрать карты в бито
-        addTrashCardsT(type)
-    }
-
-    const handleChangeAttacker = (attacker: string): void => { //изменяем нападающего
-        changeAttackerT(attacker === 'player'? 'opponent' : 'player') 
-    }
-
-    const propsReset:IResetCards = {activePack, attacker, handleAddCardLoser, hendPlayer, hendOpponent, hendleGetCards, hendAddCardsTrash, handleChangeAttacker}
+    const propsReset:IResetCards = {activePack, attacker, addCardsLoserT, hendPlayer, hendOpponent, getCardsT, addTrashCardsT, changeAttackerT}
 
     return (
         <div className="handOpponent">
             <div className="hand">
                 {hendOpponent.map((card, index) => <Card
                     key={card}
+                    index={index}
                     card={hendOpponent[index]}
                     handleSelectCard={handleSelectCard}
                     hend={'opponent'}

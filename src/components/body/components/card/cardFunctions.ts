@@ -1,4 +1,4 @@
-import { IResetCards } from "../../../../types/dats";
+import { IPlayCard, IResetCards } from "../../../../types/dats";
 
 export const convertValueToInt = (value: string): number => {
     if (isNaN(Number(value))) {
@@ -20,11 +20,11 @@ export const convertValueToInt = (value: string): number => {
     }
 }
 
-export const handlePlayCard = (card: string, attacker:string, hend:string, person:string, activePack: string[], handleSelectCard: any, trump: string): void => {
+export const handlePlayCard = ({card, attacker, hend, person, activePack, handleSelectCard, trump}: IPlayCard): void => {
     if(attacker === hend){ 
         if (person === hend) {
             if (activePack.length !== 0) { //если на столе больше 0 карт 
-                const arrOfNumbers = activePack.map(cardPack => {
+                const arrOfNumbers: number[] = activePack.map(cardPack => {
                     return convertValueToInt(cardPack.slice(0,2))
                 })
                 if (arrOfNumbers.includes(convertValueToInt(card.slice(0,2)))) { //проверка есть ли на столе такая же карта которую выбрал пользователь
@@ -42,12 +42,12 @@ export const handlePlayCard = (card: string, attacker:string, hend:string, perso
     }
     else if (activePack.length !== 0) { //при защите
 
-        const lastCard = activePack.slice(-1);
-        let lastCardValue = convertValueToInt(lastCard[0].slice(0,2)); //значения последней карты на столе
-        const lastCardSuit = lastCard[0].slice(2); //масть последней карты на столе
+        const lastCard: string[] = activePack.slice(-1);
+        let lastCardValue: number = convertValueToInt(lastCard[0].slice(0,2)); //значения последней карты на столе
+        const lastCardSuit: string = lastCard[0].slice(2); //масть последней карты на столе
 
-        let cardHendValue = convertValueToInt(card.slice(0,2));
-        const cardHendSuit = card.slice(2);
+        let cardHendValue: number = convertValueToInt(card.slice(0,2));
+        const cardHendSuit: string = card.slice(2);
 
         if (activePack.length % 2 === 1) { //проверка на колличество кар на столе
             if (trump.slice(2).trim() === cardHendSuit.trim()) { //если активная карта это козырь
@@ -80,49 +80,48 @@ export const handlePlayCard = (card: string, attacker:string, hend:string, perso
     } 
 }
     
-    
 export const handleResetCards = (props: IResetCards): void => { //сброс и раздача карт после сброса
     
-    const  {activePack, attacker, handleAddCardLoser, hendPlayer, hendOpponent, hendleGetCards, hendAddCardsTrash, handleChangeAttacker}  = props   
+    const  {activePack, attacker, addCardsLoserT, hendPlayer, hendOpponent, getCardsT, addTrashCardsT, changeAttackerT}  = props   
         
     if (activePack.length % 2 === 1) {
-        handleAddCardLoser(activePack, attacker)
+        addCardsLoserT(activePack, attacker === 'player' ? 'opponent' : 'player')
         if (attacker === 'player') {
             if (hendPlayer.length < 6) {
                 const amountCardsPlayer = 6 - hendPlayer.length
-                hendleGetCards(amountCardsPlayer, 'player')
+                getCardsT(amountCardsPlayer, 'player')
             }
         }
         else {
             if (hendOpponent.length < 6) {
                 const amountCardsOpponent = 6 - hendOpponent.length
-                hendleGetCards(amountCardsOpponent, 'opponent')
+                getCardsT(amountCardsOpponent, 'opponent')
             }
         }
-        hendAddCardsTrash('clear')
+        addTrashCardsT('clear')
     }
     else{
-        hendAddCardsTrash('simple')
+        addTrashCardsT('simple')
         if (attacker === 'player') {
             if (hendPlayer.length < 6) {
                 const amountCardsPlayer = 6 - hendPlayer.length
-                hendleGetCards(amountCardsPlayer, 'player')
+                getCardsT(amountCardsPlayer, 'player')
             }
             if (hendOpponent.length < 6) {
                 const amountCardsOpponent = 6 - hendOpponent.length
-                hendleGetCards(amountCardsOpponent, 'opponent')
+                getCardsT(amountCardsOpponent, 'opponent')
             }
         }
         else {
             if (hendOpponent.length < 6) {
                 const amountCardsOpponent = 6 - hendOpponent.length
-                hendleGetCards(amountCardsOpponent, 'opponent')
+                getCardsT(amountCardsOpponent, 'opponent')
             }
             if (hendPlayer.length < 6) {
                 const amountCardsPlayer = 6 - hendPlayer.length
-                hendleGetCards(amountCardsPlayer, 'player')
+                getCardsT(amountCardsPlayer, 'player')
             }
         }
-        handleChangeAttacker(attacker)
+        changeAttackerT(attacker === 'player'? 'opponent' : 'player')
     }
 }
