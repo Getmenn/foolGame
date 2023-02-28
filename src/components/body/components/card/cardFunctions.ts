@@ -85,8 +85,8 @@ export const handleResetCards = (props: IResetCards): void => { //сброс и 
     const  {activePack, attacker, addCardsLoserT, hendPlayer, hendOpponent, getCardsT, addTrashCardsT, changeAttackerT, setMessage}  = props   
         
     if (activePack.length % 2 === 1) {
-        /* setMessage('Беру!')
-        setTimeout(() => setMessage(''), 1500) */
+        setMessage('Беру!')
+        setTimeout(() => setMessage(''), 1200)
 
         addCardsLoserT(activePack, attacker === 'player' ? 'opponent' : 'player')
 

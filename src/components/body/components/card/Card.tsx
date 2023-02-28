@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react"
 import { ICard } from "../../../../types/dats";
-import { useTypedSelector } from "../../../hooks/useTypeSelector"
 import backSide from '../../../images/backSide.jpg'
 import './card.scss'
 import { DetailedCard } from "./DetailedCard";

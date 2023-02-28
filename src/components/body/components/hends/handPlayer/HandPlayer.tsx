@@ -10,10 +10,11 @@ import './handPlayer.scss'
 const HandPlayer: React.FC = () => {
     
     const { hendPlayer, hendOpponent } = useTypedSelector(state => state.cards)
-    const { attacker, activePack } = useTypedSelector(state => state.onTable)
+    const { attacker, activePack, person } = useTypedSelector(state => state.onTable)
     const [ elementLine, setElementLine] = useState<boolean>(false)
     const [disabled, setDisabled] = useState<boolean>(true)
-    const [ message, setMessage ] = useState<string>('')
+    const [ message, setMessage] = useState<string>('')
+    const [ buttonText, setButtonText ] = useState<string>('Бито')
     const { setCardOnTablePersonT, addTrashCardsT, getCardsT, changeAttackerT, addCardsLoserT } = useActions()
 
     useEffect(() => {
@@ -26,13 +27,23 @@ const HandPlayer: React.FC = () => {
     }, [hendPlayer])
     
     useEffect(() => {
-        if (activePack.length === 0) {
+        if (activePack.length === 0 || activePack.length % 2 === 1) {
             setDisabled(true)
         }
         else {
             setDisabled(false)
         }
     }, [activePack])
+
+    useEffect(() => {
+        if(attacker === 'player' && person === 'player'){
+            setButtonText('Бито')
+        }
+        else if (attacker === 'opponent' && person === 'player') {
+            setButtonText('Беру')
+            setDisabled(false)
+        }
+    },[attacker, person])
     
     const handleSelectCard = (card: string, person: string): void => { // положить карту на стол
         setCardOnTablePersonT(card, person)
@@ -55,7 +66,7 @@ const HandPlayer: React.FC = () => {
                         />)}
                     </div>
                 </div>
-                <button onClick={() => handleResetCards(propsReset)} disabled={disabled}>Бито</button>
+                <button onClick={() => handleResetCards(propsReset)} disabled={disabled}>{buttonText}</button>
             </div>
             <Message person='player' message={message} />
         </>

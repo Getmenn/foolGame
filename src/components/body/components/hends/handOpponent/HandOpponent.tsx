@@ -26,7 +26,7 @@ const HandOpponent: React.FC = () => {
     
     useEffect(() => {
         if (person === 'opponent') {
-            hendlePlayOpponent(hendOpponent, activePack, handleSelectCard, trump, attacker, person, propsReset, cards, setMessage)
+            hendlePlayOpponent(hendOpponent, activePack, handleSelectCard, trump, attacker, person, propsReset, cards)
         }
     }, [person, attacker])
     

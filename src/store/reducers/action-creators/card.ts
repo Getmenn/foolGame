@@ -62,11 +62,11 @@ export const addCardsLoserT = (cards: string[], person: string) => {
     return async (dispatch: Dispatch<generalAction>) => {
         if (person === 'player') {
             setTimeout(() => dispatch({ type: CardActionsTypes.ADD_PLAYER_SOME_CARD, payload: cards }), 970) 
-            dispatch({ type: onTablePackTypes.CHANGE_ATTACKER, payload: 'opponent'})
+            setTimeout(() => dispatch({ type: onTablePackTypes.CHANGE_ATTACKER, payload: 'opponent'}), 970)
             
         } else {
             setTimeout(() => dispatch({ type: CardActionsTypes.ADD_OPPONENT_SOME_CARD, payload: cards }), 970) 
-            dispatch({ type: onTablePackTypes.CHANGE_ATTACKER, payload: 'player'})
+            setTimeout(() => dispatch({ type: onTablePackTypes.CHANGE_ATTACKER, payload: 'player'}), 970)
         }
         
     }
