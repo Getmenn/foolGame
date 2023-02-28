@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { useTypedSelector } from "../../../hooks/useTypeSelector"
 import { Card } from "../card/Card"
 import './pack.scss'
