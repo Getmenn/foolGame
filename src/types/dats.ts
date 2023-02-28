@@ -12,7 +12,8 @@ export interface IResetCards {
     hendOpponent: string[];
     getCardsT: any;
     addTrashCardsT: any;
-    changeAttackerT: any
+    changeAttackerT: any;
+    setMessage: React.Dispatch<React.SetStateAction<string>>
 }
 
 export interface ICard{

@@ -4,14 +4,16 @@ import { useActions } from '../../../../hooks/useActions'
 import { useTypedSelector } from '../../../../hooks/useTypeSelector'
 import { Card } from '../../card/Card'
 import { handleResetCards } from '../../card/cardFunctions'
+import { Message } from '../../message/Message'
 import './handPlayer.scss'
 
 const HandPlayer: React.FC = () => {
     
     const { hendPlayer, hendOpponent } = useTypedSelector(state => state.cards)
     const { attacker, activePack } = useTypedSelector(state => state.onTable)
-    const [elementLine, setElementLine] = useState<boolean>(false)
+    const [ elementLine, setElementLine] = useState<boolean>(false)
     const [disabled, setDisabled] = useState<boolean>(true)
+    const [ message, setMessage ] = useState<string>('')
     const { setCardOnTablePersonT, addTrashCardsT, getCardsT, changeAttackerT, addCardsLoserT } = useActions()
 
     useEffect(() => {
@@ -36,7 +38,7 @@ const HandPlayer: React.FC = () => {
         setCardOnTablePersonT(card, person)
     }
 
-    const propsReset:IResetCards = {activePack, attacker, addCardsLoserT, hendPlayer, hendOpponent, getCardsT, addTrashCardsT, changeAttackerT}
+    const propsReset:IResetCards = {activePack, attacker, addCardsLoserT, hendPlayer, hendOpponent, getCardsT, addTrashCardsT, changeAttackerT, setMessage}
 
     return (
         <>
@@ -55,6 +57,7 @@ const HandPlayer: React.FC = () => {
                 </div>
                 <button onClick={() => handleResetCards(propsReset)} disabled={disabled}>Бито</button>
             </div>
+            <Message person='player' message={message} />
         </>
     )
 }

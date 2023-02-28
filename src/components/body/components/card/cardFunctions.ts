@@ -82,10 +82,14 @@ export const handlePlayCard = ({card, attacker, hend, person, activePack, handle
     
 export const handleResetCards = (props: IResetCards): void => { //сброс и раздача карт после сброса
     
-    const  {activePack, attacker, addCardsLoserT, hendPlayer, hendOpponent, getCardsT, addTrashCardsT, changeAttackerT}  = props   
+    const  {activePack, attacker, addCardsLoserT, hendPlayer, hendOpponent, getCardsT, addTrashCardsT, changeAttackerT, setMessage}  = props   
         
     if (activePack.length % 2 === 1) {
+        /* setMessage('Беру!')
+        setTimeout(() => setMessage(''), 1500) */
+
         addCardsLoserT(activePack, attacker === 'player' ? 'opponent' : 'player')
+
         if (attacker === 'player') {
             if (hendPlayer.length < 6) {
                 const amountCardsPlayer = 6 - hendPlayer.length
@@ -100,7 +104,10 @@ export const handleResetCards = (props: IResetCards): void => { //сброс и 
         }
         addTrashCardsT('clear')
     }
-    else{
+    else {
+        setMessage('Бито!')
+        setTimeout(() => setMessage(''), 1500)
+
         addTrashCardsT('simple')
         if (attacker === 'player') {
             if (hendPlayer.length < 6) {

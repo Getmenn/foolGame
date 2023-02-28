@@ -32,12 +32,12 @@ export const getCardsT = (cardsNum: number, person: string) => { // работа
     
     return async (dispatch: Dispatch<packAction>) => {
         if (person === 'player') {
-            dispatch({ type: CardActionsTypes.ADD_PLAYER_CARD, payload: cardsNum }) //кладем игроку 
-            dispatch({ type: CardActionsTypes.GET_CARDS, payload: cardsNum}) //забираем из колоды
+            setTimeout(() => dispatch({ type: CardActionsTypes.ADD_PLAYER_CARD, payload: cardsNum }), 900) //кладем игроку 
+            setTimeout(() => dispatch({ type: CardActionsTypes.GET_CARDS, payload: cardsNum}), 900) //забираем из колоды
         }
         else {
-            dispatch({ type: CardActionsTypes.ADD_OPPONENT_CARD, payload: cardsNum }) //кладем врагу 
-            dispatch({ type: CardActionsTypes.GET_CARDS, payload: cardsNum}) //забираем из колоды
+            setTimeout(() => dispatch({ type: CardActionsTypes.ADD_OPPONENT_CARD, payload: cardsNum }), 900) //кладем врагу 
+            setTimeout(() => dispatch({ type: CardActionsTypes.GET_CARDS, payload: cardsNum}), 900) //забираем из колоды
         }
         
     }
@@ -48,7 +48,6 @@ export const deletCardPersonT = (card: string, person: string) => { // рабо�
     return async (dispatch: Dispatch<packAction>) => {
         
         if (person === 'player') {    
-
             dispatch({ type: CardActionsTypes.DELETE_PLAYER_CARD, payload: card })
         }
         else {
@@ -62,11 +61,11 @@ export const addCardsLoserT = (cards: string[], person: string) => {
     
     return async (dispatch: Dispatch<generalAction>) => {
         if (person === 'player') {
-            dispatch({ type: CardActionsTypes.ADD_PLAYER_SOME_CARD, payload: cards })
+            setTimeout(() => dispatch({ type: CardActionsTypes.ADD_PLAYER_SOME_CARD, payload: cards }), 970) 
             dispatch({ type: onTablePackTypes.CHANGE_ATTACKER, payload: 'opponent'})
             
         } else {
-            dispatch({ type: CardActionsTypes.ADD_OPPONENT_SOME_CARD, payload: cards })
+            setTimeout(() => dispatch({ type: CardActionsTypes.ADD_OPPONENT_SOME_CARD, payload: cards }), 970) 
             dispatch({ type: onTablePackTypes.CHANGE_ATTACKER, payload: 'player'})
         }
         

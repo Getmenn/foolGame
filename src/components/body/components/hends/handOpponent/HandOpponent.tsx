@@ -3,6 +3,7 @@ import { IResetCards, ISelectCard } from '../../../../../types/dats'
 import { useActions } from '../../../../hooks/useActions'
 import { useTypedSelector } from '../../../../hooks/useTypeSelector'
 import { Card } from '../../card/Card'
+import { Message } from '../../message/Message'
 import './handOpponent.scss'
 import { hendlePlayOpponent } from './opponentFunctions'
 
@@ -10,7 +11,8 @@ const HandOpponent: React.FC = () => {
 
     const { hendOpponent, hendPlayer, trump, cards } = useTypedSelector(state => state.cards)
     const { activePack, attacker, person} = useTypedSelector(state => state.onTable)
-    const [ elementLine, setElementLine ] = useState<boolean>(false)
+    const [elementLine, setElementLine] = useState<boolean>(false)
+    const [ message, setMessage ] = useState<string>('')
     const { setCardOnTablePersonT, addCardsLoserT, getCardsT, addTrashCardsT, changeAttackerT } = useActions()
 
     useEffect(() => {
@@ -24,7 +26,7 @@ const HandOpponent: React.FC = () => {
     
     useEffect(() => {
         if (person === 'opponent') {
-            hendlePlayOpponent(hendOpponent, activePack, handleSelectCard, trump, attacker, person, propsReset, cards)
+            hendlePlayOpponent(hendOpponent, activePack, handleSelectCard, trump, attacker, person, propsReset, cards, setMessage)
         }
     }, [person, attacker])
     
@@ -32,21 +34,25 @@ const HandOpponent: React.FC = () => {
         setCardOnTablePersonT(card, person)
     }
 
-    const propsReset:IResetCards = {activePack, attacker, addCardsLoserT, hendPlayer, hendOpponent, getCardsT, addTrashCardsT, changeAttackerT}
+    const propsReset:IResetCards = {activePack, attacker, addCardsLoserT, hendPlayer, hendOpponent, getCardsT, addTrashCardsT, changeAttackerT, setMessage}
 
     return (
-        <div className="handOpponent">
-            <div className="hand">
-                {hendOpponent.map((card, index) => <Card
-                    key={card}
-                    index={index}
-                    card={hendOpponent[index]}
-                    handleSelectCard={handleSelectCard}
-                    hend={'opponent'}
-                    elementLine={elementLine}
-                />)}
+        <>
+            <div className="handOpponent">
+                <div className="hand">
+                    {hendOpponent.map((card, index) => <Card
+                        key={card}
+                        index={index}
+                        card={hendOpponent[index]}
+                        handleSelectCard={handleSelectCard}
+                        hend={'opponent'}
+                        elementLine={elementLine}
+                    />)}
+                </div>
             </div>
-        </div>
+            <Message person='opponent' message={message} />
+        </>
+        
     )
 }
 

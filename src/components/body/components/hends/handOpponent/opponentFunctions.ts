@@ -80,7 +80,7 @@ const hendleFirstMoveOpponent = (
     handleSelectCard: any,
     trump: string,
     propsReset: IResetCards,
-    personGame: string
+    personGame: string,
 ): void => { 
     
     let hendOpponentCopy: string[] = hendOpponent.slice(0);
@@ -97,9 +97,6 @@ const hendleFirstMoveOpponent = (
             if (activePack.length === 0 && cardStatus ) {
                 handlePlayCard({card , hend , attacker, person, activePack, handleSelectCard, trump}) //ходим с минимального козыря
             }
-/*             else if (activePack.length % 2 === 0 && personGame === 'opponent' && activePack.length !== 0) { // не работает пока
-                setTimeout(() => handleResetCards(propsReset), 500)
-            } */
             break;
         }
 
@@ -127,7 +124,8 @@ const hendleSecondMoveOpponent = (
     trump: string,
     handleSelectCard: any,
     propsReset: IResetCards,
-    cards: string[]
+    cards: string[],
+    setMessage: React.Dispatch<React.SetStateAction<string>>
 ): void => { //оппонент добрасывает карты в свой ход и сбрасывает
 
     const arrOfNumbersTable: number[] = []
@@ -145,20 +143,21 @@ const hendleSecondMoveOpponent = (
             if (hendOpponent[index].slice(2).trim() !== trump.slice(2).trim()) {
                 const card = hendOpponent[index];
                 statusReset = false
-                setTimeout(() => handlePlayCard({card, attacker, hend, person, activePack, handleSelectCard, trump}), 500)
+                setTimeout(() => handlePlayCard({card, attacker, hend, person, activePack, handleSelectCard, trump}), 750)
             }
             else if (cards.length <= 4) { //если в колоде 4 или меньше карт компьютер добрасывает козыри
                 const card = hendOpponent[index];
                 statusReset = false
-                setTimeout(() => handlePlayCard({card, attacker, hend, person, activePack, handleSelectCard, trump}), 500)
+                setTimeout(() => handlePlayCard({card, attacker, hend, person, activePack, handleSelectCard, trump}), 750)
             }
         }
     })
 
-    if(activePack.length % 2 === 0 && statusReset){
+    if (activePack.length % 2 === 0 && statusReset) {
+       /*  setMessage('Бито!')
+        setTimeout(() => setMessage(''), 1500) */
         setTimeout(() => handleResetCards(propsReset), 800)
     }
-
 
 }
 
@@ -167,7 +166,8 @@ export const hendleProtectionOpponent = (
     activePack: string[],
     handleSelectCard: any,
     trump: string,
-    propsReset: IResetCards
+    propsReset: IResetCards,
+    setMessage: React.Dispatch<React.SetStateAction<string>>
 ): void => { //
         
     const lastCard: string = activePack[activePack.length - 1];
@@ -182,10 +182,8 @@ export const hendleProtectionOpponent = (
     if (card === '0' && lastCardSuit !== trump.slice(2).trim() ) { //если нет подходящей карты и карта на столе не козырь
         card = hendleCheckSuitTramp(hendOpponent, '0', 0, trump) //выбираем наименьший козырь из рук  
         
-        if (card === '0') {
-            console.log('Враг забирает карты');
-            
-            setTimeout(() => handleResetCards(propsReset), 500)
+        if (card === '0') {     
+            setTimeout(() => handleResetCards(propsReset), 1000)
         }
         else {
             setTimeout(() => handlePlayCard({card ,attacker, hend  , person, activePack, handleSelectCard, trump}), 500)
@@ -193,12 +191,11 @@ export const hendleProtectionOpponent = (
     }
     else if (lastCardSuit === trump.slice(2).trim()) { //тест
         card = hendleCheckSuitTramp(hendOpponent,  lastCardSuit, lastCardNumber, trump)  
-        console.log('идет');
         
         if (card === '0') {
-            console.log('Враг забирает карты');
-            
-            setTimeout(() => handleResetCards(propsReset), 500)
+            setMessage('Бито!')
+            setTimeout(() => setMessage(''), 1500)
+            setTimeout(() => handleResetCards(propsReset), 1000)
         }
         else {
             setTimeout(() => handlePlayCard({card ,attacker, hend  , person, activePack, handleSelectCard, trump}), 500)
@@ -218,17 +215,18 @@ export const hendlePlayOpponent = (
     attacker: string,
     person: string,
     propsReset: IResetCards,
-    cards: string[]
+    cards: string[],
+    setMessage: React.Dispatch<React.SetStateAction<string>>
 ): void => {
     
     if (attacker === 'opponent' && person === 'opponent' && activePack.length) {
-        hendleSecondMoveOpponent(activePack, hendOpponent, trump, handleSelectCard, propsReset, cards)
+        hendleSecondMoveOpponent(activePack, hendOpponent, trump, handleSelectCard, propsReset, cards, setMessage)
     }
     else if (attacker === 'opponent' && person === 'opponent') {
         hendleFirstMoveOpponent(hendOpponent, activePack, handleSelectCard, trump, propsReset, person); //первый атакующий ход оппонета
     }
     else if (attacker === 'player' && person === 'opponent') {
-        hendleProtectionOpponent(hendOpponent, activePack, handleSelectCard, trump, propsReset); //защита оппонета
+        hendleProtectionOpponent(hendOpponent, activePack, handleSelectCard, trump, propsReset, setMessage); //защита оппонета
     }
 
 }
