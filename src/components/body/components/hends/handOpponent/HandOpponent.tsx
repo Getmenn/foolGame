@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { IResetCards } from '../../../../../types/dats'
+import { IResetCards, ISelectCard } from '../../../../../types/dats'
 import { useActions } from '../../../../hooks/useActions'
 import { useTypedSelector } from '../../../../hooks/useTypeSelector'
 import { Card } from '../../card/Card'
@@ -8,7 +8,7 @@ import { hendlePlayOpponent } from './opponentFunctions'
 
 const HandOpponent: React.FC = () => {
 
-    const { hendOpponent, hendPlayer, trump } = useTypedSelector(state => state.cards)
+    const { hendOpponent, hendPlayer, trump, cards } = useTypedSelector(state => state.cards)
     const { activePack, attacker, person} = useTypedSelector(state => state.onTable)
     const [ elementLine, setElementLine ] = useState<boolean>(false)
     const { setCardOnTablePersonT, addCardsLoserT, getCardsT, addTrashCardsT, changeAttackerT } = useActions()
@@ -24,7 +24,7 @@ const HandOpponent: React.FC = () => {
     
     useEffect(() => {
         if (person === 'opponent') {
-            hendlePlayOpponent(hendOpponent, activePack, handleSelectCard, trump, attacker, person, propsReset)
+            hendlePlayOpponent(hendOpponent, activePack, handleSelectCard, trump, attacker, person, propsReset, cards)
         }
     }, [person, attacker])
     

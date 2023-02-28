@@ -15,7 +15,7 @@ const DetailedCard: React.FC<IDetailedCard> = ({ card, handleSelectCard, hend })
     const [cardValue, setCardValue] = useState<string>('')
     const [cardSuit, setCardSuit] = useState<string>('')
     
-    useEffect(() => {
+    useEffect(() => {  
         setCardValue(card.slice(0, 2))
         setCardSuit(card.slice(2).trim()) 
     }, [])

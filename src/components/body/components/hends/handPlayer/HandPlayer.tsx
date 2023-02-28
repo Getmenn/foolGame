@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { IResetCards } from '../../../../../types/dats'
+import { IResetCards, ISelectCard } from '../../../../../types/dats'
 import { useActions } from '../../../../hooks/useActions'
 import { useTypedSelector } from '../../../../hooks/useTypeSelector'
 import { Card } from '../../card/Card'

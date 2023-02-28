@@ -18,7 +18,7 @@ export interface IResetCards {
 export interface ICard{
     card: string;
     key: string;
-    handleSelectCard?: (card: string, person: string) => void;
+    handleSelectCard?: any;
     hend: string; //чья рука
     elementLine?: boolean;
     index?: number;
@@ -26,7 +26,7 @@ export interface ICard{
 
 export interface IDetailedCard{
     card: string;
-    handleSelectCard?: (card: string, person: string) => void;
+    handleSelectCard?: any;
     hend: string; //чья рука
 }
 
@@ -38,4 +38,9 @@ export interface IPlayCard{
     activePack: string[];
     handleSelectCard: any;
     trump: string
+}
+
+export interface ISelectCard{
+    card: string;
+    person: string;
 }
