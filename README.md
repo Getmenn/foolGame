@@ -7,10 +7,15 @@ This project is made to test yourself and your skills. Perhaps it would have bee
 **The client part** 
 To play, click "New Game" in the upper left corner and try to win the opponent.
 
-## Screenshots
-
-![Game](https://github.com/Getmenn/foolGame/raw/master/src/components/game.jpg)
-
 ## Login details
 
 This project has not been completed yet
+
+## Screenshots
+
+![Game](https://github.com/Getmenn/foolGame/raw/master/src/components/images/readMe/game.jpg)
+
+## Site
+
+link: https://getmenn.github.io/foolGame/
+
