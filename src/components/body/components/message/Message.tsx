@@ -1,9 +1,5 @@
+import { IMessage } from '../../../../types/dats'
 import './message.scss'
-
-interface IMessage{
-    person?: string;
-    message?: string;
-}
 
 const Message: React.FC<IMessage> = ({ person, message }) => {
     

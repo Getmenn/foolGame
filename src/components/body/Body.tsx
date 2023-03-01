@@ -7,6 +7,7 @@ import { HandPlayer } from './components/hends/handPlayer/HandPlayer'
 import { Pack } from './components/pack/Pack'
 import { PackOnTable } from './components/pack/PackOnTable'
 import { TreshPach } from './components/trashPack/TreshPach'
+import { VictoryMessage } from './components/victoryMessage/VictoryMessage'
 
 const Body: React.FC = () => {
 
@@ -23,6 +24,7 @@ const Body: React.FC = () => {
             <PackOnTable />
             <HandPlayer />
             <TreshPach />
+            <VictoryMessage />
         </div>
     )
 }

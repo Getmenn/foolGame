@@ -45,3 +45,8 @@ export interface ISelectCard{
     card: string;
     person: string;
 }
+
+export interface IMessage{
+    person: string;
+    message: string;
+}

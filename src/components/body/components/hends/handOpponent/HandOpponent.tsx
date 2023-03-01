@@ -12,11 +12,12 @@ const HandOpponent: React.FC = () => {
     const { hendOpponent, hendPlayer, trump, cards } = useTypedSelector(state => state.cards)
     const { activePack, attacker, person} = useTypedSelector(state => state.onTable)
     const [elementLine, setElementLine] = useState<boolean>(false)
-    const [ message, setMessage ] = useState<string>('')
+    const [message, setMessage] = useState<string>('')
+    const [ marginHend, setMarginHend ] = useState<string>('0')
     const { setCardOnTablePersonT, addCardsLoserT, getCardsT, addTrashCardsT, changeAttackerT } = useActions()
 
     useEffect(() => {
-        if (hendOpponent.length > 6) { //если карт больше 6 то изменяе стили
+        if (hendOpponent.length > 6 || hendOpponent.length < 4) { //если карт больше 6 то изменяе стили
             setElementLine(true)
         }
         else {
@@ -29,6 +30,26 @@ const HandOpponent: React.FC = () => {
             hendlePlayOpponent(hendOpponent, activePack, handleSelectCard, trump, attacker, person, propsReset, cards)
         }
     }, [person, attacker])
+
+    useEffect(() => {
+        switch (hendOpponent.length) {
+            case 6:
+                setMarginHend('0')
+                break;
+            case 7:
+                setMarginHend('-20px')
+                break;
+            case 4:
+                setMarginHend('70px')
+                break;
+            case 3:
+                setMarginHend('0')
+                break; 
+            default:
+                setMarginHend('0')
+                break;
+        }
+    }, [hendOpponent])
     
     const handleSelectCard = (card: string, person: string): void => {
         setCardOnTablePersonT(card, person)
@@ -39,7 +60,7 @@ const HandOpponent: React.FC = () => {
     return (
         <>
             <div className="handOpponent">
-                <div className="hand">
+                <div className="hand" style={{marginLeft: marginHend }}>
                     {hendOpponent.map((card, index) => <Card
                         key={card}
                         index={index}

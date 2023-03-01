@@ -11,18 +11,29 @@
         align-items: center;
         justify-content: center;
 
-        @for $i from 1 to 7 {
+        
+
+        @for $i from 1 to 8 {
             .card:nth-child(#{$i}){
                 $degrees: -45deg + $i*13;
                 transform: rotate($degrees);
             }
         }
+        
+        .card:nth-last-child(7):first-child,
+        .card:nth-last-child(7):first-child ~ .card{
+            transform-origin: 71% 178% 0 !important;
+        }
 
+        .card:nth-last-child(4):first-child,
+        .card:nth-last-child(4):first-child ~ .card{
+            transform-origin: 28% 189% 0 !important;
+        }
+        
         .card{
-
-            cursor: pointer;
             transform-origin: 50% 200% 0;
-
+            cursor: pointer;
+            
             &:hover{
                 transition-timing-function: linear;
                 transition-duration: .3s;

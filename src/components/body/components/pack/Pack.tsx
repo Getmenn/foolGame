@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { useTypedSelector } from "../../../hooks/useTypeSelector"
 import { Card } from "../card/Card"
-import clubs from '../../../images/clubs.svg'
-import spades from '../../../images/spades.svg'
-import hearts from '../../../images/hearts.svg'
-import diamonds from '../../../images/diamonds.svg'
+import clubs from '../../../images/suits/clubs.svg'
+import spades from '../../../images/suits/spades.svg'
+import hearts from '../../../images/suits/hearts.svg'
+import diamonds from '../../../images/suits/diamonds.svg'
 import './pack.scss'
 
 const Pack: React.FC = () => {

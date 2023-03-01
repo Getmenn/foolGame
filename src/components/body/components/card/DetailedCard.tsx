@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react"
 import { useTypedSelector } from "../../../hooks/useTypeSelector"
 import './card.scss'
-import clubs from '../../../images/clubs.svg'
-import spades from '../../../images/spades.svg'
-import hearts from '../../../images/hearts.svg'
-import diamonds from '../../../images/diamonds.svg'
+import clubs from '../../../images/suits/clubs.svg'
+import spades from '../../../images/suits/spades.svg'
+import hearts from '../../../images/suits/hearts.svg'
+import diamonds from '../../../images/suits/diamonds.svg'
 import { handlePlayCard } from "./cardFunctions"
 import { IDetailedCard } from "../../../../types/dats"
 
 const DetailedCard: React.FC<IDetailedCard> = ({ card, handleSelectCard, hend }) => {
 
-    const { trump, hendOpponent  } = useTypedSelector(state => state.cards)
+    const { trump} = useTypedSelector(state => state.cards)
     const { person, activePack, attacker} = useTypedSelector(state => state.onTable)
     const [cardValue, setCardValue] = useState<string>('')
     const [cardSuit, setCardSuit] = useState<string>('')

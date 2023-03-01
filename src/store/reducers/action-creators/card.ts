@@ -28,7 +28,25 @@ export const setNewGameT = ()  => { // перемешать карты и раз
     }
 }
 
-export const getCardsT = (cardsNum: number, person: string) => { // работает
+export const clearTableT = () => {
+    return async (dispatch: Dispatch<generalAction>) => {
+
+        let cardMass
+
+        if (localStorage.getItem('cards')) {
+            cardMass = localStorage.getItem('cards')
+        }
+        if (typeof cardMass === 'string') {
+            cardMass = JSON.parse(cardMass) // ok
+        }
+
+        dispatch({ type: onTablePackTypes.CLEAR_TABLE, payload: { person: 'player' } })  //игрок начинает 
+        dispatch({ type: CardActionsTypes.SET_NEW_CARDS, payload: [...cardMass] })
+        dispatch({ type: CardActionsTypes.SET_RANDOM_CARDS })
+    }
+}
+
+export const getCardsT = (cardsNum: number, person: string) => { 
     
     return async (dispatch: Dispatch<packAction>) => {
         if (person === 'player') {

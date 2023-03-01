@@ -1,0 +1,63 @@
+.victoryMessage, .defeatMessage{
+    width: 500px;
+    height: 300px;
+    background: #adbbff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 11;
+    box-sizing: border-box;
+    transform: translate(-50%, -50%);
+    box-shadow: 6px 7px 8px #484848;
+    border-radius: 10px;
+    font-size: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    animation: animate_reduce 2s infinite;
+    
+    img{
+        height: 250px;
+        width: 250px;
+    }
+
+    img:last-child{
+        transform: scale(-1, 1)
+    }
+}
+
+@keyframes animate_reduce {
+    0% {
+        transform: scale3d(1, 1, 1) translate(-50%, -50%);
+    }
+    50% {
+        transform: scale3d(0.95, 0.95, 0.95) translate(-50%, -50%);
+    }
+    100% {
+        transform: scale3d(1, 1, 1) translate(-50%, -50%);
+    }
+}
+
+.defeatMessage{
+    flex-direction: column;
+    font-size: 56px;
+    animation: none;
+
+    img{
+        height: 194px;
+        width: 252px;
+    }
+}
+
+.overlay { 
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(1, 1, 1, 0.5);
+    z-index: 10;
+}

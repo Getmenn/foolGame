@@ -14,11 +14,12 @@ const HandPlayer: React.FC = () => {
     const [ elementLine, setElementLine] = useState<boolean>(false)
     const [disabled, setDisabled] = useState<boolean>(true)
     const [ message, setMessage] = useState<string>('')
-    const [ buttonText, setButtonText ] = useState<string>('Бито')
+    const [buttonText, setButtonText] = useState<string>('Бито')
+    const [ marginHend, setMarginHend ] = useState<string>('0')
     const { setCardOnTablePersonT, addTrashCardsT, getCardsT, changeAttackerT, addCardsLoserT } = useActions()
 
     useEffect(() => {
-        if (hendPlayer.length > 6) {
+        if (hendPlayer.length > 7 || hendPlayer.length < 4) {
             setElementLine(true)
         }
         else {
@@ -43,7 +44,28 @@ const HandPlayer: React.FC = () => {
             setButtonText('Беру')
             setDisabled(false)
         }
-    },[attacker, person])
+    }, [attacker, person])
+    
+    useEffect(() => {
+        switch (hendPlayer.length) {
+            case 6:
+                setMarginHend('0')
+                break;
+            case 7:
+                setMarginHend('-20px')
+                break;
+            case 4:
+                setMarginHend('70px')
+                break;
+            case 3:
+                setMarginHend('0')
+                break; 
+            default:
+                setMarginHend('0')
+                break;
+        }
+    }, [hendPlayer])
+
     
     const handleSelectCard = (card: string, person: string): void => { // положить карту на стол
         setCardOnTablePersonT(card, person)
@@ -55,7 +77,7 @@ const HandPlayer: React.FC = () => {
         <>
             <div className="containerHandPlayer">
                 <div className="handPlayer">
-                    <div className="hand">
+                    <div className="hand" style={{marginLeft: marginHend }}>
                         {hendPlayer.map((card, index) => <Card
                             key={card}
                             index = {index}
