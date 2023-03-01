@@ -15,6 +15,13 @@ This project has not been completed yet
 
 ![Game](https://github.com/Getmenn/foolGame/raw/master/src/components/images/readMe/game.jpg)
 
+### Victory
+<img src='https://github.com/Getmenn/foolGame/raw/master/src/components/images/readMe/gifVictory.gif' height=200px alt='victory'>
+
+### Defeat 
+<img src='https://github.com/Getmenn/foolGame/raw/master/src/components/images/readMe/gifDefeat.gif' height=200px alt='defeat'>
+
+
 ## Site
 
 link: https://getmenn.github.io/foolGame/
