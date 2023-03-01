@@ -1,18 +1,20 @@
 {
   "files": {
-    "main.css": "/foolGame/static/css/main.c71f8603.css",
-    "main.js": "/foolGame/static/js/main.1a13f1bc.js",
+    "main.css": "/foolGame/static/css/main.7621aa22.css",
+    "main.js": "/foolGame/static/js/main.43178452.js",
+    "static/media/firework.png": "/foolGame/static/media/firework.a9280df9472c88e39794.png",
     "static/media/backSide.jpg": "/foolGame/static/media/backSide.fcd4414abd78e08c65b5.jpg",
+    "static/media/whiteFlag.gif": "/foolGame/static/media/whiteFlag.b0928eebeb077453fe93.gif",
     "static/media/hearts.svg": "/foolGame/static/media/hearts.31dca59e35f299ec425d134f7169540e.svg",
     "static/media/diamonds.svg": "/foolGame/static/media/diamonds.2e6b7260b71c172d8ad83f6b9d9d661d.svg",
     "index.html": "/foolGame/index.html",
     "static/media/spades.svg": "/foolGame/static/media/spades.45dbb21599cae24cc7330d580287d535.svg",
     "static/media/clubs.svg": "/foolGame/static/media/clubs.5d8ca0a5489ef1d800163637b565921e.svg",
-    "main.c71f8603.css.map": "/foolGame/static/css/main.c71f8603.css.map",
-    "main.1a13f1bc.js.map": "/foolGame/static/js/main.1a13f1bc.js.map"
+    "main.7621aa22.css.map": "/foolGame/static/css/main.7621aa22.css.map",
+    "main.43178452.js.map": "/foolGame/static/js/main.43178452.js.map"
   },
   "entrypoints": [
-    "static/css/main.c71f8603.css",
-    "static/js/main.1a13f1bc.js"
+    "static/css/main.7621aa22.css",
+    "static/js/main.43178452.js"
   ]
 }
