@@ -17,7 +17,7 @@ const HandOpponent: React.FC = () => {
     const { setCardOnTablePersonT, addCardsLoserT, getCardsT, addTrashCardsT, changeAttackerT } = useActions()
 
     useEffect(() => {
-        if (hendOpponent.length > 6 || hendOpponent.length < 4) { //если карт больше 6 то изменяе стили
+        if (hendOpponent.length > 7 || hendOpponent.length < 4) { //если карт больше 6 то изменяе стили
             setElementLine(true)
         }
         else {
@@ -37,10 +37,10 @@ const HandOpponent: React.FC = () => {
                 setMarginHend('0')
                 break;
             case 7:
-                setMarginHend('-20px')
+                setMarginHend('90px')
                 break;
             case 4:
-                setMarginHend('70px')
+                setMarginHend('-111px')
                 break;
             case 3:
                 setMarginHend('0')
