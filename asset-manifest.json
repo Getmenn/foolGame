@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/foolGame/static/css/main.24ba4513.css",
+    "main.js": "/foolGame/static/js/main.e9d7370c.js",
+    "static/media/backSide.jpg": "/foolGame/static/media/backSide.fcd4414abd78e08c65b5.jpg",
+    "static/media/hearts.svg": "/foolGame/static/media/hearts.31dca59e35f299ec425d134f7169540e.svg",
+    "static/media/diamonds.svg": "/foolGame/static/media/diamonds.2e6b7260b71c172d8ad83f6b9d9d661d.svg",
+    "index.html": "/foolGame/index.html",
+    "static/media/spades.svg": "/foolGame/static/media/spades.45dbb21599cae24cc7330d580287d535.svg",
+    "static/media/clubs.svg": "/foolGame/static/media/clubs.5d8ca0a5489ef1d800163637b565921e.svg",
+    "main.24ba4513.css.map": "/foolGame/static/css/main.24ba4513.css.map",
+    "main.e9d7370c.js.map": "/foolGame/static/js/main.e9d7370c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.24ba4513.css",
+    "static/js/main.e9d7370c.js"
+  ]
+}
