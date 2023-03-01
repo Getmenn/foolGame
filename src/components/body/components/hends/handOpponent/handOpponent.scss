@@ -1,4 +1,5 @@
 .handOpponent{
+
     .hand{
         display: flex;
         flex-direction: row;
@@ -9,19 +10,21 @@
         margin-bottom: -80px;
         align-items: center;
         justify-content: center;
+
         @for $i from 1 to 7 {
             .card:nth-child(#{$i}){
                 $degrees: -45deg + $i*13;
                 transform: rotate($degrees);
             }
         }
+
         .card{
             transform-origin: 50% -125% 0;
-            &:hover{
+            /* &:hover{
                 transition-timing-function: linear;
                 transition-duration: .3s;
                 margin-bottom: 100px;
-            }
+            } */
         };
     }
 }

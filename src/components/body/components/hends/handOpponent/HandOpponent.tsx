@@ -45,7 +45,7 @@ const HandOpponent: React.FC = () => {
                         index={index}
                         card={hendOpponent[index]}
                         handleSelectCard={handleSelectCard}
-                        hend={'opponent'}
+                        hend={'pack'}
                         elementLine={elementLine}
                     />)}
                 </div>
