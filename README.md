@@ -1,4 +1,4 @@
-# Еest task
+# Fool game
 
 ![](https://img.shields.io/npm/v/react?label=React&style=flat-square) ![](https://img.shields.io/npm/v/sass?label=sass&style=flat-square) ![](https://img.shields.io/npm/v/react-redux?label=React-redux&style=flat-square) ![](https://img.shields.io/npm/v/typescript?label=typescript&style=flat-square) :sunglasses:
 
