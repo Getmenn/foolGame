@@ -8,7 +8,7 @@ import diamonds from '../../../images/suits/diamonds.svg'
 import { handlePlayCard } from "./cardFunctions"
 import { IDetailedCard } from "../../../../types/dats"
 
-const DetailedCard: React.FC<IDetailedCard> = ({ card, handleSelectCard, hend }) => {
+const DetailedCard: React.FC<IDetailedCard> =  ({ card, handleSelectCard, hend }) => {
 
     const { trump} = useTypedSelector(state => state.cards)
     const { person, activePack, attacker} = useTypedSelector(state => state.onTable)
@@ -18,8 +18,8 @@ const DetailedCard: React.FC<IDetailedCard> = ({ card, handleSelectCard, hend })
     useEffect(() => {  
         setCardValue(card.slice(0, 2))
         setCardSuit(card.slice(2).trim()) 
-    }, [])
-
+    }, [card])   
+    
     useEffect(() => {
         switch (cardSuit) {
             case 'clubs':
@@ -36,7 +36,7 @@ const DetailedCard: React.FC<IDetailedCard> = ({ card, handleSelectCard, hend })
                 break;
             default:
                 break;
-        }
+        } 
     },[cardSuit])  
 
     return (

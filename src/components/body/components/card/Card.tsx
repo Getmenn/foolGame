@@ -7,15 +7,15 @@ const Card: React.FC<ICard> = (props) => {
 
     const { card, handleSelectCard, hend, index, elementLine = false} = props
 
-    const styleCard: React.CSSProperties = // работает, но пока безпонтово
-        elementLine ? { 
-            transform: 'none',
-            marginLeft: '-42px',
-            zIndex: index
+    const styleCard: React.CSSProperties = elementLine
+        ? { 
+        transform: 'none',
+        marginLeft: '-42px',
+        zIndex: index
         } 
         : {
-            zIndex: index
-          }
+        zIndex: index
+        }
     
     return (
         <div className='card' style={styleCard}>
